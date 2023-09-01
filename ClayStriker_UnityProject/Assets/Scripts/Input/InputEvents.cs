@@ -52,6 +52,15 @@ public class InputEvents : Singleton<InputEvents>
         if (context.started) fireEvent();
     }
 
+    public void TestBearing(InputAction.CallbackContext context)
+    {
+        if (fireEvent != FireGun || !context.started) return;
+
+        Vector2 direction = context.ReadValue<Vector2>();
+        Debug.Log("Test bearing direction is (" + direction.x.ToString() + ", " + direction.y.ToString() + ")");
+        Player.Instance.SetBearing(new Vector3(direction.x, 0.0f, direction.y));
+    }
+
     //==============
     // INPUT STATES
     //==============

@@ -7,9 +7,9 @@ using UnityEngine;
 public class CameraSettings
 {
     [Tooltip("The angle the camera can rotate below the horizon")]
-    public float yLimit_Lower;
+    public float yLimitLower;
     [Tooltip("The angle the camera can rotate above the horizon")]
-    public float yLimit_Upper;
+    public float yLimitUpper;
     [Tooltip("The angle the camera can rotate from its bearing")]
     public float xLimit;
 }
