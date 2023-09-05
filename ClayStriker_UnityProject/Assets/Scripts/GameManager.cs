@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     private int score;
+
+    public int Score { get => score; }
     
     public override void Awake()
     {
@@ -16,6 +18,9 @@ public class GameManager : Singleton<GameManager>
     public void AddScore(int amount)
     {
         score += amount;
-        Debug.Log("Score is now " + score.ToString());
+        UIManager.Instance.UpdateScore();
+        //Debug.Log("Score is now " + score.ToString());
     }
+
+
 }

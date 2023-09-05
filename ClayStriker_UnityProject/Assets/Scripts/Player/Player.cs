@@ -109,6 +109,6 @@ public class Player : Singleton<Player>
         //Debug.Log("Player gun fired");
         GameObject newBullet = GameObject.Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
         newBullet.transform.LookAt(newBullet.transform.position + shootPoint.forward);
-        newBullet.GetComponent<Rigidbody>().AddForce(shootPoint.forward * 5.0f, ForceMode.Impulse);
+        newBullet.GetComponent<Rigidbody>().AddForce(shootPoint.forward * 4.0f, ForceMode.Impulse);
     }
 }

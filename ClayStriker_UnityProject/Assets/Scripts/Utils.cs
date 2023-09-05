@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Utils : MonoBehaviour
+public static class Utils
 {
-    public static Transform GetBaseTransform(Transform child)
+    public static Transform GetBaseTransform(this Transform child)
     {
         while (child.parent != null)
         {
@@ -12,4 +13,5 @@ public class Utils : MonoBehaviour
         }
         return child;
     }
+    
 }
