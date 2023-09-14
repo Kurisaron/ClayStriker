@@ -21,5 +21,21 @@ public class TrackUtils
         return UnityEngine.Object.FindObjectOfType<Track>() == null;
     }
 
-    
+    [MenuItem("GameObject/Clay Strikers/Track/Add Stop")]
+    public static void ContextAddStop(MenuCommand menuCommand)
+    {
+        AddStop(Selection.activeGameObject.GetComponent<Track>());
+    }
+
+    [MenuItem("GameObject/Clay Strikers/Track/Add Stop", true)]
+    public static bool ValidateContextAddStop()
+    {
+        return Selection.activeGameObject != null && Selection.activeGameObject.GetComponent<Track>() != null;
+    }
+
+
+    public static void AddStop(Track track)
+    {
+
+    }
 }

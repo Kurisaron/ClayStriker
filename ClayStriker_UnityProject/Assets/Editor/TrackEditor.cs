@@ -9,6 +9,8 @@ public class TrackEditor : Editor
 {
     private SerializedProperty stopsProp;
 
+    private bool stopsGroupOpen = false;
+
     private void OnEnable()
     {
         // Setup Serialized Properties
@@ -30,8 +32,9 @@ public class TrackEditor : Editor
             track.stops.Add(newStop.AddComponent<Stop>().Init(track));
         }
 
-        EditorGUILayout.PropertyField(stopsProp);
+        if (track != null && track.stops != null) EditorGUILayout.LabelField(track.stops.Count.ToString() + " Stops");
 
+        //EditorGUILayout.PropertyField(stopsProp);
 
     }
 

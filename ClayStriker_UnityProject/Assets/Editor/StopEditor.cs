@@ -19,12 +19,13 @@ public class StopEditor : Editor
     {
         serializedObject.Update();
 
-        DrawDefaultInspector();
+        //DrawDefaultInspector();
 
         Stop stop = (Stop)target;
 
         if (GUILayout.Button("Remove Stop"))
         {
+            
             Track track = stop.track;
             track.stops.Remove(stop);
 
