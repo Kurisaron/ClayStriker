@@ -11,8 +11,6 @@ public class Bunker : MonoBehaviour
     private void Awake()
     {
         shootHole = transform.Find("ShootHole");
-        if (shootHole == null) Debug.LogError("Bunker shoot hole not found");
-        else StartCoroutine(IntervalShootRoutine(2.0f));
     }
 
     private IEnumerator IntervalShootRoutine(float interval)
@@ -25,7 +23,7 @@ public class Bunker : MonoBehaviour
         }
     }
 
-    private void ShootTarget()
+    public void ShootTarget()
     {
         GameObject newTarget = GameObject.Instantiate(targetPrefab, shootHole.position, Quaternion.identity);
         newTarget.transform.LookAt(newTarget.transform.position + shootHole.up);

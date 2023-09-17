@@ -61,8 +61,15 @@ public class Player : Singleton<Player>
         if (localOrigin == null) localOrigin = transform;
 
         shootBearing = new Func<Vector3>(() => localOrigin.TransformDirection(direction));
+        
+        movingParts.body.LookAt(movingParts.body.position + new Vector3(shootBearing().x, 0.0f, shootBearing().z));
+    }
 
-        movingParts.body.LookAt(movingParts.body.position + shootBearing());
+    public void SetBearing(Func<Vector3> direction)
+    {
+        shootBearing = direction;
+
+        movingParts.body.LookAt(movingParts.body.position + new Vector3(shootBearing().x, 0.0f, shootBearing().z));
     }
 
     //=================

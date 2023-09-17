@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    public GameObject playerPrefab;
+    public GameObject bunkerPrefab;
     private int score;
 
     public int Score { get => score; }

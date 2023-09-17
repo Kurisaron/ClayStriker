@@ -7,13 +7,14 @@ using UnityEngine;
 [CanEditMultipleObjects()]
 public class TrackEditor : Editor
 {
+    private SerializedProperty showDebugProp;
     private SerializedProperty stopsProp;
 
-    private bool stopsGroupOpen = false;
 
     private void OnEnable()
     {
         // Setup Serialized Properties
+        showDebugProp = serializedObject.FindProperty("showDebug");
         stopsProp = serializedObject.FindProperty("stops");
     }
 
@@ -27,15 +28,16 @@ public class TrackEditor : Editor
 
         if (GUILayout.Button("Add Stop"))
         {
-            GameObject newStop = new GameObject("Stop" + track.stops.Count);
-            newStop.transform.SetPositionRotationAndParent(Vector3.zero, Quaternion.Euler(Vector3.zero), track.transform);
-            track.stops.Add(newStop.AddComponent<Stop>().Init(track));
+            TrackUtils.AddStop(track);
         }
 
         if (track != null && track.stops != null) EditorGUILayout.LabelField(track.stops.Count.ToString() + " Stops");
 
         //EditorGUILayout.PropertyField(stopsProp);
 
+        showDebugProp.boolValue = EditorGUILayout.Toggle(new GUIContent("Show Stop Debug", "Show the gizmos in the scene to allow for easier testing"), showDebugProp.boolValue);
+
+        serializedObject.ApplyModifiedProperties();
     }
 
 }

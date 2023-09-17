@@ -5,6 +5,17 @@ using UnityEngine;
 
 public static class Utils
 {
+    public static Color RandomColor() => new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), 1.0f);
+
+    //============
+    // EXTENSIONS
+    //============
+    
+    public static float AngleToRadians(this float angle)
+    {
+        return angle / 180 * Mathf.PI;
+    }
+    
     /// <summary>
     /// Returns the root/base transform of this one
     /// </summary>
@@ -30,5 +41,24 @@ public static class Utils
     {
         transform.SetPositionAndRotation(position, rotation);
         transform.parent = parent;
+    }
+
+    /// <summary>
+    /// Switch two elements in a list for each other based on their index.
+    /// </summary>
+    /// <typeparam name="T">The type of the objects stored in the list.</typeparam>
+    /// <param name="list">The list being switched.</param>
+    /// <param name="firstElement">The first element being switched.</param>
+    /// <param name="secondElement">The second element being switched.</param>
+    public static List<T> Switch<T>(this List<T> list, T firstElement, T secondElement)
+    {
+        int firstIndex = list.FindIndex(element => element.Equals(firstElement));
+        int secondIndex = list.FindIndex(element => element.Equals(secondElement));
+
+        list[firstIndex] = secondElement;
+        list[secondIndex] = firstElement;
+
+        Debug.Log("Switch complete");
+        return list;
     }
 }
