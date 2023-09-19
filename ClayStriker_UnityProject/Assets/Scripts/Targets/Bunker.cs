@@ -7,10 +7,12 @@ public class Bunker : MonoBehaviour
     private Transform shootHole;
     [SerializeField] private float shootForceMult;
     [SerializeField] private GameObject targetPrefab;
+    [SerializeField] private bool isAuto = false;
     
     private void Awake()
     {
         shootHole = transform.Find("ShootHole");
+        if (isAuto) StartCoroutine(IntervalShootRoutine(1.0f));
     }
 
     private IEnumerator IntervalShootRoutine(float interval)
