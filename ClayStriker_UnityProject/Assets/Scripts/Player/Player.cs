@@ -38,7 +38,7 @@ public class Player : Singleton<Player>
         }
         movingParts.camera = camera;
 
-        Transform gun = camera.Find("Gun");
+        Transform gun = camera.Find("Shotgun");
         if (gun == null)
         {
             Debug.LogError("No gun found on player");
