@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private Text scoreCounter;
+    [SerializeField] private GameObject leaderboardScreenPrefab;
 
     private void Start()
     {
@@ -15,5 +16,10 @@ public class UIManager : Singleton<UIManager>
     public void UpdateScore()
     {
         scoreCounter.text = "Score: " + GameManager.Instance.Score.ToString();
+    }
+
+    public void DisplayLeaderboard()
+    {
+
     }
 }
