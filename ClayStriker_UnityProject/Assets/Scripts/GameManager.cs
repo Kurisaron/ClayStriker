@@ -1,28 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    public LevelManager levelManager;
+    
     public GameObject playerPrefab;
     public GameObject bunkerPrefab;
-    private int score;
-
-    public int Score { get => score; }
+    public int Score { get; private set; }
     
     public override void Awake()
     {
         base.Awake();
 
-        score = 0;
+        Score = 0;
+        levelManager = new LevelManager();
     }
 
     public void AddScore(int amount)
     {
-        score += amount;
+        Score += amount;
         UIManager.Instance.UpdateScore();
         //Debug.Log("Score is now " + score.ToString());
     }
 
 
+    public class LevelManager
+    {
+        public LevelManager()
+        {
+            
+        }
+
+        public void LoadLevel(string levelName) => SceneManager.LoadScene(levelName, LoadSceneMode.Single);
+    }
 }

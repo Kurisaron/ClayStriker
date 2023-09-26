@@ -64,7 +64,7 @@ public class Stop : MonoBehaviour
 
     private void PassOn() => track.PassOn();
 
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if (!showDebug) return;

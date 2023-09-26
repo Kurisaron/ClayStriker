@@ -556,6 +556,7 @@ GameObject:
   - component: {fileID: 668219765}
   - component: {fileID: 668219764}
   - component: {fileID: 668219763}
+  - component: {fileID: 668219766}
   m_Layer: 0
   m_Name: SingletonManager
   m_TagString: Untagged
@@ -576,6 +577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreCounter: {fileID: 1068837383}
+  leaderboardScreenPrefab: {fileID: 0}
 --- !u!114 &668219764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,6 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b988d6bde9a24414d83d154b0b22dda3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadTest_LevelName: Prototype
   playerPrefab: {fileID: 1533705738761902056, guid: fa53196b5c5da5547ac4ab464fdc152f,
     type: 3}
   bunkerPrefab: {fileID: 7259661552753296109, guid: 544ab86ace446f34d9360afd99a52430,
@@ -607,6 +610,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &668219766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668219762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5fe3fc6835c6e42aeb4ecf8cdff971, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level1SavePath: 
 --- !u!1 &719482883
 GameObject:
   m_ObjectHideFlags: 0

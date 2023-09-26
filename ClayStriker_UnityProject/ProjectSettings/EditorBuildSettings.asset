@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Prototype.unity
     guid: 67d6ed53f4717ac4d8d9b02fcbb44e57
+  - enabled: 1
+    path: Assets/Scenes/OwenWork.unity
+    guid: c81a308f824d69d4b82ad59d66e3b595
   m_configObjects: {}
