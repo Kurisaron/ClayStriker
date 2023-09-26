@@ -74,7 +74,17 @@ public class Track : Singleton<Track>
     public void PassOn()
     {
         if (route.Count > 0) targetStop = route.Dequeue();
-        else Debug.LogWarning("No more steps");
+        else EndTrack();
+    }
+
+    private void EndTrack()
+    {
+        #if UNITY_EDITOR
+        Debug.LogWarning("No more steps");
+        return;
+        #endif
+
+
     }
 
     public void OnDrawGizmos()
