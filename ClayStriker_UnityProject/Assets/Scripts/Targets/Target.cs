@@ -15,7 +15,7 @@ public class Target : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Vector3.Distance(transform.position, Player.Instance.gameObject.transform.position) > 30.0f)
+        if (Vector3.Distance(transform.position, Player.Instance.gameObject.transform.position) > 100.0f)
         {
             Destroy(gameObject);
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -32,12 +33,25 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.UpdateScore();
     }
 
+    public void LevelSelectButton()
+    {
+        levelManager.LoadLevel(0);
+    }
+
     [Serializable]
     public class LevelManager
     {
-        //[SerializeField] private Scene[] levels;
+        [SerializeField, Tooltip("Element 0 = Level Select, all others match their level order")]
+        private string[] levelNames;
 
-        public void LoadScene(string levelName) => SceneManager.LoadScene(levelName, LoadSceneMode.Single);
+        public void LoadLevel(int num)
+        {
+            
+            
+            LoadScene(levelNames[num]);
+        }
+
+        private void LoadScene(string levelName) => SceneManager.LoadScene(levelName, LoadSceneMode.Single);
 
         public int GetLevelNum()
         {
