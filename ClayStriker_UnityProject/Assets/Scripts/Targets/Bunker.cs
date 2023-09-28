@@ -25,10 +25,12 @@ public class Bunker : MonoBehaviour
         }
     }
 
-    public void ShootTarget()
+    public Target ShootTarget(Stop stop = null)
     {
         GameObject newTarget = GameObject.Instantiate(targetPrefab, shootHole.position, Quaternion.identity);
+        newTarget.GetComponent<Target>().Init(stop);
         newTarget.transform.LookAt(newTarget.transform.position + shootHole.up);
         newTarget.GetComponent<Rigidbody>().AddForce(shootHole.up * shootForceMult, ForceMode.Impulse);
+        return newTarget.GetComponent<Target>();
     }
 }

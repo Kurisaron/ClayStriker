@@ -10,7 +10,7 @@ public static class Utils
     //============
     // EXTENSIONS
     //============
-    
+
     public static float AngleToRadians(this float angle)
     {
         return angle / 180 * Mathf.PI;

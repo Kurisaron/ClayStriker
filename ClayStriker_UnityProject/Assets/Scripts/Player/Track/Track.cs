@@ -79,12 +79,19 @@ public class Track : Singleton<Track>
 
     private void EndTrack()
     {
-        #if UNITY_EDITOR
-        Debug.LogWarning("No more steps");
-        return;
-        #endif
+        InputEvents.Instance.SetInputState(InputState.Menu);
 
+        int levelNum = GameManager.Instance.levelManager.GetLevelNum();
+        SaveManager.Instance.NewScore(levelNum, GameManager.Instance.Score, out int newScoreIndex);
+        SaveManager.Instance.WriteSaveFile();
+        GameManager.Instance.ResetScore();
 
+        DisplayLeaderboard(levelNum, newScoreIndex);
+    }
+
+    private void DisplayLeaderboard(int levelNum, int newScoreIndex)
+    {
+        UIManager.Instance.DisplayLeaderboard(levelNum, newScoreIndex);
     }
 
     public void OnDrawGizmos()

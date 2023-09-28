@@ -6,6 +6,12 @@ public class Target : MonoBehaviour
 {
     private bool isSmashed = false;
     [SerializeField] private int pointValue;
+    private Stop parentStop;
+
+    public void Init(Stop stop = null)
+    {
+        parentStop = stop;
+    }
 
     private void FixedUpdate()
     {
@@ -24,6 +30,7 @@ public class Target : MonoBehaviour
         {
             GameManager.Instance.AddScore(pointValue);
         }
+        if (parentStop != null) parentStop.activeTargets.Remove(this);
 
         isSmashed = true;
         Destroy(gameObject);

@@ -14,6 +14,7 @@ public class Stop : MonoBehaviour
 
     public List<Bunker> bunkers = new List<Bunker>();
     [SerializeField] private List<FiringStep> firingSequence = new List<FiringStep>();
+    public List<Target> activeTargets = new List<Target>();
 
     [SerializeField] private float arrivalAngle = 0;
     public Vector3 ArrivalDirection
@@ -53,9 +54,11 @@ public class Stop : MonoBehaviour
         {
             FiringStep step = firingSequence[i];
             yield return new WaitForSeconds(step.delay);
-            if (bunkers[step.bunkerAIndex] != null) bunkers[step.bunkerAIndex].ShootTarget();
-            if (bunkers[step.bunkerBIndex] != null) bunkers[step.bunkerBIndex].ShootTarget();
+            if (bunkers[step.bunkerAIndex] != null) activeTargets.Add(bunkers[step.bunkerAIndex].ShootTarget(this));
+            if (bunkers[step.bunkerBIndex] != null) activeTargets.Add(bunkers[step.bunkerBIndex].ShootTarget(this));
         }
+
+        yield return new WaitUntil(() => activeTargets.Count <= 0);
 
         PassOn();
     }

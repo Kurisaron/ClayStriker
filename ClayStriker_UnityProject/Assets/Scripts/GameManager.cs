@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,6 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
 
         Score = 0;
-        levelManager = new LevelManager();
     }
 
     public void AddScore(int amount)
@@ -26,14 +26,29 @@ public class GameManager : Singleton<GameManager>
         //Debug.Log("Score is now " + score.ToString());
     }
 
+    public void ResetScore()
+    {
+        Score = 0;
+        UIManager.Instance.UpdateScore();
+    }
 
+    [Serializable]
     public class LevelManager
     {
-        public LevelManager()
-        {
-            
-        }
+        //[SerializeField] private Scene[] levels;
 
-        public void LoadLevel(string levelName) => SceneManager.LoadScene(levelName, LoadSceneMode.Single);
+        public void LoadScene(string levelName) => SceneManager.LoadScene(levelName, LoadSceneMode.Single);
+
+        public int GetLevelNum()
+        {
+            string num = "";
+            string levelName = SceneManager.GetActiveScene().name;
+            for (int i = 0; i < levelName.Length; ++i)
+            {
+                if (Char.IsDigit(levelName[i])) num += levelName[i];
+            }
+            if (num.Length > 0) return int.Parse(num);
+            else return 0;
+        }
     }
 }

@@ -10,6 +10,7 @@ public class InputEvents : Singleton<InputEvents>
     // VARIABLES
     //===========
 
+    private InputState inputState;
     private Action<Vector2> lookEvent;
     private Action fireEvent;
 
@@ -21,7 +22,12 @@ public class InputEvents : Singleton<InputEvents>
     {
         base.Awake();
 
-        SetInputState(InputState.Game);
+        SetInputState(inputState = InputState.Game);
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (focus) SetCursor();
     }
 
     //==============
@@ -68,6 +74,8 @@ public class InputEvents : Singleton<InputEvents>
     // Used to switch input between playing the game and operating menus
     public void SetInputState(InputState state)
     {
+        inputState = state;
+        SetCursor();
         switch (state)
         {
             case InputState.Game:
@@ -77,6 +85,21 @@ public class InputEvents : Singleton<InputEvents>
             case InputState.Menu:
                 lookEvent = MoveCursor;
                 fireEvent = ClickMenu;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void SetCursor()
+    {
+        switch (inputState)
+        {
+            case InputState.Game:
+                Cursor.lockState = CursorLockMode.Locked;
+                break;
+            case InputState.Menu:
+                Cursor.lockState = CursorLockMode.Confined;
                 break;
             default:
                 break;
