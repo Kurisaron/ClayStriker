@@ -46,7 +46,12 @@ public class GameManager : Singleton<GameManager>
 
         public void LoadLevel(int num)
         {
-            
+            Track track = Track.Instance;
+            track.ClearPlayer();
+            Destroy(track.gameObject);
+
+            UIManager.Instance.HideLeaderboard();
+            UIManager.Instance.DisplayScore(num != 0);
             
             LoadScene(levelNames[num]);
         }
@@ -64,5 +69,6 @@ public class GameManager : Singleton<GameManager>
             if (num.Length > 0) return int.Parse(num);
             else return 0;
         }
+
     }
 }

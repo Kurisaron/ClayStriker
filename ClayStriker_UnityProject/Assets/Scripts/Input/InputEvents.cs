@@ -22,7 +22,8 @@ public class InputEvents : Singleton<InputEvents>
     {
         base.Awake();
 
-        SetInputState(inputState = InputState.Game);
+        int levelNum = GameManager.Instance.levelManager.GetLevelNum();
+        SetInputState(levelNum == 0 ? InputState.Menu : InputState.Game);
     }
 
     private void OnApplicationFocus(bool focus)
@@ -89,6 +90,8 @@ public class InputEvents : Singleton<InputEvents>
             default:
                 break;
         }
+
+        Debug.Log(state.ToString());
     }
 
     private void SetCursor()

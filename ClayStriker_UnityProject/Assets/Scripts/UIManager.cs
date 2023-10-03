@@ -17,8 +17,10 @@ public class UIManager : Singleton<UIManager>
 
     public void UpdateScore()
     {
-        scoreCounter.text = "Score: " + GameManager.Instance.Score.ToString();
+        if (scoreCounter.gameObject.activeInHierarchy) scoreCounter.text = "Score: " + GameManager.Instance.Score.ToString();
     }
+
+    public void DisplayScore(bool active) => scoreCounter.gameObject.SetActive(active);
 
     public void DisplayLeaderboard(int level, int newScoreIndex)
     {
@@ -58,6 +60,11 @@ public class UIManager : Singleton<UIManager>
                     return "ERROR";
             }
         }
+    }
+
+    public void HideLeaderboard()
+    {
+         if (leaderboardScreen.gameObject.activeInHierarchy) leaderboardScreen.SetActive(false);
     }
 
 }

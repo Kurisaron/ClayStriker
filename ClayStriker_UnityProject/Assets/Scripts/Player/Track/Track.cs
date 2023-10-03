@@ -94,6 +94,11 @@ public class Track : Singleton<Track>
         UIManager.Instance.DisplayLeaderboard(levelNum, newScoreIndex);
     }
 
+    public void ClearPlayer()
+    {
+        Destroy(player.gameObject);
+    }
+
     public void OnDrawGizmos()
     {
         if (!showDebug) return;
