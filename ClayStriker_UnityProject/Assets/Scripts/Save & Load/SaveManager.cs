@@ -12,12 +12,16 @@ public class SaveManager : Singleton<SaveManager>
     private string SavePath { get => Path.Combine(saveFolderPath, "CS_Save.json"); }
     public SaveData saveData;
 
-    public override void Awake()
+    public void OnEnable()
     {
-        base.Awake();
-
+        
         saveData = ReadSaveFile();
         if (saveData == null) Debug.LogError("Still no save data");
+
+        foreach (LevelSave levelSave in saveData.levelSaves)
+        {
+            Debug.Log(levelSave.PrintScores());
+        }
     }
 
     public SaveData ReadSaveFile()
@@ -93,28 +97,32 @@ public class LevelSave
 
     public void NewScore(int score, out int newScoreIndex)
     {
-        int[] scores = new int[leaderboard.Length + 1];
-        for (int i = 0; i < scores.Length; ++i)
-        {
-            if (i == scores.Length - 1)
-            {
-                scores[i] = score;
-                continue;
-            }
-            
-            scores[i] = leaderboard[i];
-        }
-
-        // Sort the scores to put them in ascending order then reverse them to put in descending (index of 0 is highest score)
-        Array.Sort(scores);
-        Array.Reverse(scores);
-
+        List<int> checkScores = new List<int>();
+        checkScores.Add(score);
         for (int i = 0; i < leaderboard.Length; ++i)
         {
-            leaderboard[i] = scores[i];
+            checkScores.Add(leaderboard[i]);
         }
+        checkScores.Sort();
+        checkScores.Reverse();
+        for (int i = 0; i < leaderboard.Length; ++i)
+        {
+            Debug.Log(checkScores[i].ToString());
+            leaderboard[i] = checkScores[i];
+        }
+        Debug.Log(checkScores[leaderboard.Length].ToString());
 
         if (Array.Exists(leaderboard, element => element == score)) newScoreIndex = Array.FindIndex(leaderboard, element => element == score);
         else newScoreIndex = -1;
+    }
+
+    public string PrintScores()
+    {
+        string output = "( ";
+        for (int i = 0; i < leaderboard.Length; ++i)
+        {
+            output += leaderboard[i] + (i != leaderboard.Length - 1 ? ", " : " )");
+        }
+        return output;
     }
 }
