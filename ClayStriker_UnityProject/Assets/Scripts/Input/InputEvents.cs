@@ -18,12 +18,9 @@ public class InputEvents : Singleton<InputEvents>
     // UNITY FUNCTIONS
     //=================
 
-    public override void Awake()
+    public void Start()
     {
-        base.Awake();
-
-        int levelNum = GameManager.Instance.levelManager.GetLevelNum();
-        SetInputState(levelNum == 0 ? InputState.Menu : InputState.Game);
+        
     }
 
     private void OnApplicationFocus(bool focus)
@@ -90,7 +87,6 @@ public class InputEvents : Singleton<InputEvents>
             default:
                 break;
         }
-
         Debug.Log(state.ToString());
     }
 
