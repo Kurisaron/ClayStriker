@@ -1,0 +1,44 @@
+{
+    "levelSaves": [
+        {
+            "levelNum": 1,
+            "leaderboard": [
+                600,
+                100,
+                100,
+                100,
+                0
+            ]
+        },
+        {
+            "levelNum": 2,
+            "leaderboard": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        {
+            "levelNum": 3,
+            "leaderboard": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        {
+            "levelNum": 4,
+            "leaderboard": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        }
+    ]
+}
