@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -18,7 +18,10 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
 
         Score = 0;
+        if (SceneManager.GetActiveScene().name == levelManager.loadingSceneName) levelManager.LoadLevel(0);
+        InputEvents.Instance.SetInputState(InputState.Game);
     }
+
 
     public void AddScore(int amount)
     {
@@ -38,17 +41,42 @@ public class GameManager : Singleton<GameManager>
         levelManager.LoadLevel(0);
     }
 
+    public void Level1Button()
+    {
+        UIManager.Instance.DisplayLevelSelect(false);
+        levelManager.LoadLevel(1);
+    }
+
+    public void QuitButton()
+    {
+        
+
+        Application.Quit();
+    }
+
     [Serializable]
     public class LevelManager
     {
+        public string loadingSceneName;
         [SerializeField, Tooltip("Element 0 = Level Select, all others match their level order")]
         private string[] levelNames;
 
         public void LoadLevel(int num)
         {
+            UIManager.Instance.HideLeaderboard();
+            UIManager.Instance.DisplayScore(num != 0);
             
-            
+            if (GetLevelNum() > 0)
+            {
+                Track track = Track.Instance;
+                Destroy(track.player.gameObject);
+                Destroy(track.gameObject);
+            }
+
             LoadScene(levelNames[num]);
+
+            if (num == 0) UIManager.Instance.DisplayLevelSelect(true);
+            InputEvents.Instance.SetInputState(num > 0 ? InputState.Game : InputState.Menu);
         }
 
         private void LoadScene(string levelName) => SceneManager.LoadScene(levelName, LoadSceneMode.Single);
@@ -63,6 +91,11 @@ public class GameManager : Singleton<GameManager>
             }
             if (num.Length > 0) return int.Parse(num);
             else return 0;
+        }
+
+        public bool IsLoadingScene()
+        {
+            return SceneManager.GetActiveScene().name == loadingSceneName;
         }
     }
 }

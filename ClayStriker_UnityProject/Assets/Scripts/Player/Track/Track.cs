@@ -8,7 +8,7 @@ public class Track : Singleton<Track>
 {
     [SerializeField] private bool showDebug = true;
 
-    private Player player;
+    public Player player;
 
     private float playerMoveSpeed = 10.0f;
 
@@ -82,7 +82,7 @@ public class Track : Singleton<Track>
         InputEvents.Instance.SetInputState(InputState.Menu);
 
         int levelNum = GameManager.Instance.levelManager.GetLevelNum();
-        SaveManager.Instance.NewScore(levelNum, GameManager.Instance.Score, out int newScoreIndex);
+        SaveManager.Instance.NewScore(levelNum - 1, GameManager.Instance.Score, out int newScoreIndex);
         SaveManager.Instance.WriteSaveFile();
         GameManager.Instance.ResetScore();
 

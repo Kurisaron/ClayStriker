@@ -8,16 +8,34 @@ public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private Text scoreCounter;
     [SerializeField] private GameObject leaderboardScreen;
-
-    private void Start()
+    [SerializeField] private GameObject levelSelectScreen;
+    /*
+    public void Init(Text sc, GameObject lbs, GameObject lss)
     {
-        UpdateScore();
-        if (leaderboardScreen.activeInHierarchy) leaderboardScreen.SetActive(false);
+        scoreCounter = sc;
+        leaderboardScreen = lbs;
+        levelSelectScreen = lss;
+
+        Button levelSelectButton = leaderboardScreen.transform.Find("LevelSelectButton").gameObject.GetComponent<Button>();
+        levelSelectButton.onClick.AddListener(GameManager.Instance.LevelSelectButton);
+        Button level1Button = levelSelectScreen.transform.Find("Level1Button").gameObject.GetComponent<Button>();
+        level1Button.onClick.AddListener(GameManager.Instance.Level1Button);
+        Button quitButton = leaderboardScreen.transform.Find("QuitButton").gameObject.GetComponent<Button>();
+        quitButton.onClick.AddListener(GameManager.Instance.QuitButton);
+
+        leaderboardScreen.SetActive(false);
+        levelSelectScreen.SetActive(false);
     }
+    */
 
     public void UpdateScore()
     {
-        scoreCounter.text = "Score: " + GameManager.Instance.Score.ToString();
+        if (scoreCounter.gameObject.activeInHierarchy) scoreCounter.text = "Score: " + GameManager.Instance.Score.ToString();
+    }
+
+    public void DisplayScore(bool active)
+    {
+        scoreCounter.gameObject.SetActive(active);
     }
 
     public void DisplayLeaderboard(int level, int newScoreIndex)
@@ -60,4 +78,13 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
+    public void HideLeaderboard()
+    {
+        leaderboardScreen.SetActive(false);
+    }
+
+    public void DisplayLevelSelect(bool active)
+    {
+        levelSelectScreen.SetActive(active);
+    }
 }

@@ -18,11 +18,9 @@ public class InputEvents : Singleton<InputEvents>
     // UNITY FUNCTIONS
     //=================
 
-    public override void Awake()
+    public void Start()
     {
-        base.Awake();
-
-        SetInputState(inputState = InputState.Game);
+        
     }
 
     private void OnApplicationFocus(bool focus)
@@ -89,6 +87,7 @@ public class InputEvents : Singleton<InputEvents>
             default:
                 break;
         }
+        Debug.Log(state.ToString());
     }
 
     private void SetCursor()

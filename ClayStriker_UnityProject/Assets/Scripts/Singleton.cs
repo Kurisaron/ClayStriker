@@ -31,7 +31,8 @@ public class Singleton<T> : MonoBehaviour where T : Component
         if (_instance == null)
         {
             _instance = this as T;
-            DontDestroyOnLoad(gameObject);
+            Debug.Log(typeof(T).Name + " initialized");
+            if (gameObject.transform.parent == null) DontDestroyOnLoad(gameObject);
         }
         else
         {
