@@ -76,10 +76,11 @@ public class GameManager : Singleton<GameManager>
                 Destroy(track.gameObject);
             }
 
-            LoadScene(levelNames[num]);
-
             if (num == 0) UIManager.Instance.DisplayLevelSelect(true);
             InputEvents.Instance.SetInputState(num > 0 ? InputState.Game : InputState.Menu);
+
+            LoadScene(levelNames[num]);
+
         }
 
         private void LoadScene(string levelName) => SceneManager.LoadScene(levelName, LoadSceneMode.Single);
