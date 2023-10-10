@@ -18,8 +18,11 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
 
         Score = 0;
-        if (SceneManager.GetActiveScene().name == levelManager.loadingSceneName) levelManager.LoadLevel(0);
-        InputEvents.Instance.SetInputState(InputState.Game);
+        if (SceneManager.GetActiveScene().name == levelManager.loadingSceneName)
+        {
+            levelManager.LoadLevel(0);
+            InputEvents.Instance.SetInputState(InputState.Menu);
+        }
     }
 
 

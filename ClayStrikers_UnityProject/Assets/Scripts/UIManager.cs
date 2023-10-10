@@ -9,24 +9,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Text scoreCounter;
     [SerializeField] private GameObject leaderboardScreen;
     [SerializeField] private GameObject levelSelectScreen;
-    /*
-    public void Init(Text sc, GameObject lbs, GameObject lss)
-    {
-        scoreCounter = sc;
-        leaderboardScreen = lbs;
-        levelSelectScreen = lss;
-
-        Button levelSelectButton = leaderboardScreen.transform.Find("LevelSelectButton").gameObject.GetComponent<Button>();
-        levelSelectButton.onClick.AddListener(GameManager.Instance.LevelSelectButton);
-        Button level1Button = levelSelectScreen.transform.Find("Level1Button").gameObject.GetComponent<Button>();
-        level1Button.onClick.AddListener(GameManager.Instance.Level1Button);
-        Button quitButton = leaderboardScreen.transform.Find("QuitButton").gameObject.GetComponent<Button>();
-        quitButton.onClick.AddListener(GameManager.Instance.QuitButton);
-
-        leaderboardScreen.SetActive(false);
-        levelSelectScreen.SetActive(false);
-    }
-    */
+    
 
     public void UpdateScore()
     {
