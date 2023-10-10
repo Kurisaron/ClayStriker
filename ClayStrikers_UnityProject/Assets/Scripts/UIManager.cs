@@ -3,13 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static GameManager;
 
 public class UIManager : Singleton<UIManager>
 {
-    [SerializeField] private Text scoreCounter;
+    [SerializeField] private GameObject gameScreen;
     [SerializeField] private GameObject leaderboardScreen;
     [SerializeField] private GameObject levelSelectScreen;
-    
+    [SerializeField] private GameObject creditsScreen;
+    [SerializeField] private Text scoreCounter;
+    [SerializeField] private Text nextLevelButtonText;
 
     public void UpdateScore()
     {
@@ -24,6 +27,8 @@ public class UIManager : Singleton<UIManager>
     public void DisplayLeaderboard(int level, int newScoreIndex)
     {
         leaderboardScreen.SetActive(true);
+
+        nextLevelButtonText.text = GameManager.Instance.levelManager.GetLevelNum() >= GameManager.Instance.levelManager.levelNames.Length - 1 ? "Credits" : "Next Level";
 
         GameObject[] scoreText = new GameObject[5];
         for (int i = 0; i < scoreText.Length; ++i)

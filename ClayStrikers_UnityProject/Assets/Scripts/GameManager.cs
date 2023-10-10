@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -44,6 +45,12 @@ public class GameManager : Singleton<GameManager>
         levelManager.LoadLevel(0);
     }
 
+    public void NextLevelButton()
+    {
+        if (levelManager.GetLevelNum() >= levelManager.levelNames.Length - 1) levelManager.LoadCredits();
+        else levelManager.LoadLevel(levelManager.GetLevelNum() + 1);
+    }
+
     public void Level1Button()
     {
         UIManager.Instance.DisplayLevelSelect(false);
@@ -61,14 +68,30 @@ public class GameManager : Singleton<GameManager>
     public class LevelManager
     {
         public string loadingSceneName;
-        [SerializeField, Tooltip("Element 0 = Level Select, all others match their level order")]
-        private string[] levelNames;
+        public string creditsSceneName;
+        [Tooltip("Element 0 = Level Select, all others match their level order")]
+        public string[] levelNames;
 
         public void LoadLevel(int num)
         {
+            bool isLoadingGameLevel = num > 0;
+            LoadReset(isLoadingGameLevel, !isLoadingGameLevel, isLoadingGameLevel ? InputState.Game : InputState.Menu);
+
+            LoadScene(levelNames[num]);
+
+        }
+
+        public void LoadCredits()
+        {
+            LoadReset(false, false, InputState.Menu);
+            LoadScene(creditsSceneName);
+        }
+
+        private void LoadReset(bool displayScore, bool displayLevelSelect, InputState targetState)
+        {
             UIManager.Instance.HideLeaderboard();
-            UIManager.Instance.DisplayScore(num != 0);
-            
+            UIManager.Instance.DisplayScore(displayScore);
+
             if (GetLevelNum() > 0)
             {
                 Track track = Track.Instance;
@@ -76,10 +99,8 @@ public class GameManager : Singleton<GameManager>
                 Destroy(track.gameObject);
             }
 
-            if (num == 0) UIManager.Instance.DisplayLevelSelect(true);
-            InputEvents.Instance.SetInputState(num > 0 ? InputState.Game : InputState.Menu);
-
-            LoadScene(levelNames[num]);
+            if (displayLevelSelect) UIManager.Instance.DisplayLevelSelect(true);
+            InputEvents.Instance.SetInputState(targetState);
 
         }
 
