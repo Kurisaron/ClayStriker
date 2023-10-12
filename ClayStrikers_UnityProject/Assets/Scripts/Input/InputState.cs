@@ -5,5 +5,6 @@ using UnityEngine;
 public enum InputState
 {
     Game,
-    Menu
+    Menu,
+    PauseMenu
 }

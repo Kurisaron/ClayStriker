@@ -8,20 +8,27 @@ using static GameManager;
 public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private GameObject gameScreen;
+    [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject leaderboardScreen;
     [SerializeField] private GameObject levelSelectScreen;
     [SerializeField] private GameObject creditsScreen;
     [SerializeField] private Text scoreCounter;
     [SerializeField] private Text nextLevelButtonText;
+    [SerializeField] private GameObject level2Button;
 
     public void UpdateScore()
     {
         if (scoreCounter.gameObject.activeInHierarchy) scoreCounter.text = "Score: " + GameManager.Instance.Score.ToString();
     }
 
-    public void DisplayScore(bool active)
+    public void DisplayGameScreen(bool active)
     {
-        scoreCounter.gameObject.SetActive(active);
+        gameScreen.SetActive(active);
+    }
+
+    public void DisplayPauseScreen(bool active)
+    {
+        pauseScreen.SetActive(active);
     }
 
     public void DisplayLeaderboard(int level, int newScoreIndex)
@@ -74,5 +81,7 @@ public class UIManager : Singleton<UIManager>
     public void DisplayLevelSelect(bool active)
     {
         levelSelectScreen.SetActive(active);
+
+        level2Button.SetActive(active && SaveManager.Instance.saveData.levelSaves[1].levelUnlocked);
     }
 }

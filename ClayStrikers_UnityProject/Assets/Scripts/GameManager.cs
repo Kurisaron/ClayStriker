@@ -13,6 +13,19 @@ public class GameManager : Singleton<GameManager>
     public GameObject playerPrefab;
     public GameObject bunkerPrefab;
     public int Score { get; private set; }
+
+    private bool gamePaused = false;
+    public bool GamePaused
+    {
+        get => gamePaused;
+        set
+        {
+            gamePaused = value;
+            Time.timeScale = value ? 0 : 1;
+            InputEvents.Instance.SetInputState(value ? InputState.PauseMenu : InputState.Game);
+            UIManager.Instance.DisplayPauseScreen(value);
+        }
+    }
     
     public override void Awake()
     {
@@ -40,6 +53,9 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.UpdateScore();
     }
 
+
+    #region Button Events
+
     public void LevelSelectButton()
     {
         levelManager.LoadLevel(0);
@@ -51,11 +67,13 @@ public class GameManager : Singleton<GameManager>
         else levelManager.LoadLevel(levelManager.GetLevelNum() + 1);
     }
 
-    public void Level1Button()
+    public void LevelButton(int level)
     {
         UIManager.Instance.DisplayLevelSelect(false);
-        levelManager.LoadLevel(1);
+        levelManager.LoadLevel(level);
     }
+
+
 
     public void QuitButton()
     {
@@ -63,6 +81,8 @@ public class GameManager : Singleton<GameManager>
 
         Application.Quit();
     }
+
+    #endregion
 
     [Serializable]
     public class LevelManager
@@ -74,6 +94,12 @@ public class GameManager : Singleton<GameManager>
 
         public void LoadLevel(int num)
         {
+            if (num >= levelNames.Length)
+            {
+                Debug.LogWarning("Cannot load level " + num.ToString() + ", no level has been set");
+                return;
+            }
+
             bool isLoadingGameLevel = num > 0;
             LoadReset(isLoadingGameLevel, !isLoadingGameLevel, isLoadingGameLevel ? InputState.Game : InputState.Menu);
 
@@ -87,10 +113,11 @@ public class GameManager : Singleton<GameManager>
             LoadScene(creditsSceneName);
         }
 
-        private void LoadReset(bool displayScore, bool displayLevelSelect, InputState targetState)
+        private void LoadReset(bool displayGameScreen, bool displayLevelSelect, InputState targetState)
         {
             UIManager.Instance.HideLeaderboard();
-            UIManager.Instance.DisplayScore(displayScore);
+            UIManager.Instance.DisplayGameScreen(displayGameScreen);
+            GameManager.Instance.GamePaused = false;
 
             if (GetLevelNum() > 0)
             {
@@ -99,7 +126,7 @@ public class GameManager : Singleton<GameManager>
                 Destroy(track.gameObject);
             }
 
-            if (displayLevelSelect) UIManager.Instance.DisplayLevelSelect(true);
+            UIManager.Instance.DisplayLevelSelect(displayLevelSelect);
             InputEvents.Instance.SetInputState(targetState);
 
         }
@@ -121,6 +148,11 @@ public class GameManager : Singleton<GameManager>
         public bool IsLoadingScene()
         {
             return SceneManager.GetActiveScene().name == loadingSceneName;
+        }
+
+        public bool IsLevelSelectScene()
+        {
+            return SceneManager.GetActiveScene().name == levelNames[0];
         }
     }
 }

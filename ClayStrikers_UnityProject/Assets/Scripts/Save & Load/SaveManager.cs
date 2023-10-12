@@ -56,9 +56,12 @@ public class SaveManager : Singleton<SaveManager>
         File.WriteAllText(SavePath, contents);
     }
 
-    public void NewScore(int levelNum, int score, out int newScoreIndex)
+    public void NewScore(int levelIndex, int score, out int newScoreIndex)
     {
-        saveData.NewScore(levelNum, score, out newScoreIndex);
+        saveData.NewScore(levelIndex, score, out newScoreIndex);
+
+        LevelSave nextLevel = saveData.levelSaves[levelIndex + 1];
+        if (!nextLevel.levelUnlocked && newScoreIndex >= 0) nextLevel.levelUnlocked = true;
     }
 }
 
@@ -83,11 +86,13 @@ public class SaveData
 public class LevelSave
 {
     public int levelNum;
+    public bool levelUnlocked;
     public int[] leaderboard;
 
     public LevelSave(int level)
     {
         levelNum = level;
+        levelUnlocked = level == 1;
         leaderboard = new int[5];
         for (int i = 0; i < leaderboard.Length; ++i)
         {
