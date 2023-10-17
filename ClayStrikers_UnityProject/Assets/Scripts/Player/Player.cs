@@ -8,6 +8,7 @@ public class Player : Singleton<Player>
     [SerializeField, Tooltip("ONLY CHANGE IN PLAYER PREFAB")] private CameraSettings cameraSettings;
     private (Transform body, Transform camera, Transform gun) movingParts;
     private Func<Vector3> shootBearing;
+    public bool IsRecoiling { get; private set; }
 
     private Transform shootPoint;
     [SerializeField, Tooltip("ONLY CHANGE IN PLAYER PREFAB")] private GameObject bulletPrefab;
@@ -18,6 +19,7 @@ public class Player : Singleton<Player>
 
         SetParts();
         SetBearing(Vector3.forward);
+        IsRecoiling = false;
     }
 
     private void SetParts()
@@ -94,7 +96,7 @@ public class Player : Singleton<Player>
         {
             delta.x = Mathf.Sign(delta.x) * Mathf.Min(Mathf.Abs(delta.x), cameraSettings.xLimit - Mathf.Abs(angleFromBearing));
         }
-        body.Rotate(new Vector3(0.0f, delta.x * 0.5f, 0.0f), Space.Self);
+        body.Rotate(new Vector3(0.0f, delta.x * cameraSettings.turnSpeed, 0.0f), Space.Self);
 
         // Rotate up/down
         Transform camera = movingParts.camera;
@@ -108,7 +110,7 @@ public class Player : Singleton<Player>
         {
             delta.y = Mathf.Sign(delta.y) * Mathf.Min(Mathf.Abs(delta.y), (Mathf.Sign(delta.y) > 0 ? cameraSettings.yLimitLower : cameraSettings.yLimitUpper) - Mathf.Abs(angleFromHorizon));
         }
-        camera.Rotate(new Vector3(delta.y * 0.5f, 0.0f, 0.0f), Space.Self);
+        camera.Rotate(new Vector3(delta.y * cameraSettings.turnSpeed, 0.0f, 0.0f), Space.Self);
     }
 
     public void Shoot()
@@ -117,5 +119,24 @@ public class Player : Singleton<Player>
         GameObject newBullet = GameObject.Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
         newBullet.transform.LookAt(newBullet.transform.position + shootPoint.forward);
         newBullet.GetComponent<Rigidbody>().AddForce(shootPoint.forward * 4.0f, ForceMode.Impulse);
+
+        // Gun recoil
+        StartCoroutine(RecoilRoutine());
+    }
+
+    private IEnumerator RecoilRoutine()
+    {
+        IsRecoiling = true;
+
+        (float time, float duration) recoil = (0.0f, 0.5f);
+        while (recoil.time <= recoil.duration)
+        {
+            
+            
+            yield return null;
+            recoil.time += Time.deltaTime;
+        }
+
+        IsRecoiling = false;
     }
 }
