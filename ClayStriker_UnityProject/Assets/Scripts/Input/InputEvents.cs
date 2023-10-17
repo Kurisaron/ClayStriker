@@ -129,7 +129,10 @@ public class InputEvents : Singleton<InputEvents>
     private void MoveCamera(Vector2 delta) => Player.Instance.Look(delta);
 
     // GAME: Fire the gun
-    private void FireGun() => Player.Instance.Shoot();
+    private void FireGun()
+    {
+        if (!Player.Instance.IsRecoiling) Player.Instance.Shoot();
+    }
 
     // GAME: Pause/unpause the game
     private void TogglePause() => GameManager.Instance.GamePaused ^= true;
