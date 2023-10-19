@@ -1,0 +1,48 @@
+{
+    "levelSaves": [
+        {
+            "levelNum": 1,
+            "levelUnlocked": true,
+            "leaderboard": [
+                600,
+                400,
+                400,
+                100,
+                0
+            ]
+        },
+        {
+            "levelNum": 2,
+            "levelUnlocked": true,
+            "leaderboard": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        {
+            "levelNum": 3,
+            "levelUnlocked": false,
+            "leaderboard": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        {
+            "levelNum": 4,
+            "levelUnlocked": false,
+            "leaderboard": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        }
+    ]
+}
