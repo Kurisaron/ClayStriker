@@ -1263,7 +1263,7 @@ MonoBehaviour:
   pauseScreen: {fileID: 1927425232850045361}
   leaderboardScreen: {fileID: 4912371423129642243}
   levelSelectScreen: {fileID: 6549916643612001840}
-  creditsScreen: {fileID: 0}
+  creditsScreen: {fileID: 6049118502602611374}
   scoreCounter: {fileID: 6562155719856625339}
   nextLevelButtonText: {fileID: 8056057278280402113}
   level2Button: {fileID: 2309293484687273944}

@@ -128,12 +128,11 @@ public class Player : Singleton<Player>
     {
         IsRecoiling = true;
 
-        (float time, float duration) recoil = (0.0f, 0.5f);
+        (float time, float duration) recoil = (0.0f, 0.05f);
         while (recoil.time <= recoil.duration)
         {
-            
-            
             yield return null;
+            Look(Vector2.up * Time.deltaTime * (60.0f / cameraSettings.turnSpeed));
             recoil.time += Time.deltaTime;
         }
 
