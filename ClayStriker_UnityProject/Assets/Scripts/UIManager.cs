@@ -10,11 +10,17 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject gameScreen;
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject leaderboardScreen;
+    [SerializeField] private GameObject mainMenuScreen;
     [SerializeField] private GameObject levelSelectScreen;
     [SerializeField] private GameObject creditsScreen;
     [SerializeField] private Text scoreCounter;
     [SerializeField] private Text nextLevelButtonText;
     [SerializeField] private GameObject level2Button;
+
+    public void DisplayMainMenu(bool active)
+    {
+        mainMenuScreen.SetActive(active);
+    }
 
     public void UpdateScore()
     {

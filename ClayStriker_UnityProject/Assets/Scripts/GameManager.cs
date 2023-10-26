@@ -34,8 +34,8 @@ public class GameManager : Singleton<GameManager>
         Score = 0;
         if (SceneManager.GetActiveScene().name == sceneLoader.loadingSceneName)
         {
-            sceneLoader.LoadLevel(0);
-            InputEvents.Instance.SetInputState(InputState.Menu);
+            sceneLoader.LoadMainMenu();
+            //InputEvents.Instance.SetInputState(InputState.Menu);
         }
     }
 
@@ -101,11 +101,13 @@ public class GameManager : Singleton<GameManager>
     public class SceneLoader
     {
         public string loadingSceneName;
+        public string mainMenuSceneName;
         public string creditsSceneName;
         [Tooltip("Element 0 = Level Select, all others match their level order")]
         public string[] levelNames;
 
-        
+        public void LoadMainMenu() => LoadScene(mainMenuSceneName, SceneLoadType.MainMenu);
+
         public void LoadLevel(int num)
         {
             if (num >= levelNames.Length)
@@ -134,6 +136,7 @@ public class GameManager : Singleton<GameManager>
                 Destroy(track.gameObject);
             }
 
+            UIManager.Instance.DisplayMainMenu(displayMainMenu);
             UIManager.Instance.DisplayLevelSelect(displayLevelSelect);
             UIManager.Instance.DisplayGameScreen(displayGameScreen);
             InputEvents.Instance.SetInputState(targetState);

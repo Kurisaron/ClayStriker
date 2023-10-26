@@ -24,7 +24,8 @@ public class Target : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.GetBaseTransform().gameObject.name.Contains("Bunker")) return;
+        Transform otherBaseGO = other.transform.GetBaseTransform();
+        if (otherBaseGO.name.Contains("Bunker") || otherBaseGO.name.Contains("Spawner")) return;
         
         if (!isSmashed && other.gameObject.transform.GetBaseTransform().gameObject.name.Contains("Bullet"))
         {

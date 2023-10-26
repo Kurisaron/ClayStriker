@@ -1561,6 +1561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneLoader:
     loadingSceneName: Loading
+    mainMenuSceneName: MainMenu
     creditsSceneName: Credits
     levelNames:
     - LevelSelect
@@ -1584,6 +1585,7 @@ MonoBehaviour:
   gameScreen: {fileID: 7273704659344045371}
   pauseScreen: {fileID: 1927425232850045361}
   leaderboardScreen: {fileID: 4912371423129642243}
+  mainMenuScreen: {fileID: 1490943643082154970}
   levelSelectScreen: {fileID: 6549916643612001840}
   creditsScreen: {fileID: 6049118502602611374}
   scoreCounter: {fileID: 6562155719856625339}
