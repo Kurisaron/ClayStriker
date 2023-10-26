@@ -81,7 +81,7 @@ public class Track : Singleton<Track>
     {
         InputEvents.Instance.SetInputState(InputState.Menu);
 
-        int levelNum = GameManager.Instance.levelManager.GetLevelNum();
+        int levelNum = GameManager.Instance.sceneLoader.GetLevelNum();
         SaveManager.Instance.NewScore(levelNum - 1, GameManager.Instance.Score, out int newScoreIndex);
         SaveManager.Instance.WriteSaveFile();
         GameManager.Instance.ResetScore();

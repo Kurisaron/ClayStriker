@@ -1559,7 +1559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b988d6bde9a24414d83d154b0b22dda3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelManager:
+  sceneLoader:
     loadingSceneName: Loading
     creditsSceneName: Credits
     levelNames:

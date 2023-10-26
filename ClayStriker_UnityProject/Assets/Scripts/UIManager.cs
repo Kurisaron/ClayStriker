@@ -35,7 +35,7 @@ public class UIManager : Singleton<UIManager>
     {
         leaderboardScreen.SetActive(true);
 
-        nextLevelButtonText.text = GameManager.Instance.levelManager.GetLevelNum() >= GameManager.Instance.levelManager.levelNames.Length - 1 ? "Credits" : "Next Level";
+        nextLevelButtonText.text = GameManager.Instance.sceneLoader.GetLevelNum() >= GameManager.Instance.sceneLoader.levelNames.Length - 1 ? "Credits" : "Next Level";
 
         GameObject[] scoreText = new GameObject[5];
         for (int i = 0; i < scoreText.Length; ++i)
