@@ -61,6 +61,14 @@ public class GameManager : Singleton<GameManager>
         levelManager.LoadLevel(0);
     }
 
+    public void OptionsButton(string context)
+    {
+        if (context.Equals("MainMenu"))
+        {
+
+        }
+    }
+
     public void NextLevelButton()
     {
         if (levelManager.GetLevelNum() >= levelManager.levelNames.Length - 1) levelManager.LoadCredits();
@@ -156,3 +164,4 @@ public class GameManager : Singleton<GameManager>
         }
     }
 }
+
