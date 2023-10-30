@@ -24,8 +24,10 @@ public class GameManager : Singleton<GameManager>
             Time.timeScale = value ? 0 : 1;
             InputEvents.Instance.SetInputState(value ? InputState.PauseMenu : InputState.Game);
             UIManager.Instance.DisplayPauseScreen(value);
+            UIManager.Instance.DisplayOptionsMenu(false);
         }
     }
+    private string optionsContext = "";
     
     public override void Awake()
     {
@@ -63,14 +65,33 @@ public class GameManager : Singleton<GameManager>
 
     public void OptionsButton(string context)
     {
+        optionsContext = context;
+
         if (context.Equals("MainMenu"))
         {
-
+            UIManager.Instance.DisplayMainMenu(false);
+            UIManager.Instance.DisplayOptionsMenu(true);
         }
 
         if (context.Equals("PauseMenu"))
         {
+            UIManager.Instance.DisplayPauseScreen(false);
+            UIManager.Instance.DisplayOptionsMenu(true);
+        }
+    }
 
+    public void OptionsReturn()
+    {
+        if (optionsContext.Equals("MainMenu"))
+        {
+            UIManager.Instance.DisplayMainMenu(true);
+            UIManager.Instance.DisplayOptionsMenu(false);
+        }
+
+        if (optionsContext.Equals("PauseMenu"))
+        {
+            UIManager.Instance.DisplayPauseScreen(true);
+            UIManager.Instance.DisplayOptionsMenu(false);
         }
     }
 
@@ -165,9 +186,9 @@ public class GameManager : Singleton<GameManager>
                     break;
             }
 
-            Debug.LogWarning("DISPLAY CONDITIONS FOUND");
+            //Debug.LogWarning("DISPLAY CONDITIONS FOUND");
             LoadReset(display.mainMenu, display.levelSelect, display.gameScreen, display.creditsScreen, display.targetState);
-            Debug.LogWarning("DISPLAY CONDITIONS SET");
+            //Debug.LogWarning("DISPLAY CONDITIONS SET");
             SceneManager.LoadScene(levelName, LoadSceneMode.Single);
         }
 
@@ -201,5 +222,6 @@ public class GameManager : Singleton<GameManager>
             Credits
         }
     }
+
 }
 

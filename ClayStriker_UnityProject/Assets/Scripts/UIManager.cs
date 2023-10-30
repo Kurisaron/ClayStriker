@@ -12,7 +12,9 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject leaderboardScreen;
     [SerializeField] private GameObject mainMenuScreen;
     [SerializeField] private GameObject levelSelectScreen;
+    [SerializeField] private GameObject optionsScreen;
     [SerializeField] private GameObject creditsScreen;
+    [SerializeField] private GameObject crosshair;
     [SerializeField] private Text scoreCounter;
     [SerializeField] private Text nextLevelButtonText;
     [SerializeField] private GameObject level2Button;
@@ -25,6 +27,11 @@ public class UIManager : Singleton<UIManager>
     public void UpdateScore()
     {
         if (scoreCounter.gameObject.activeInHierarchy) scoreCounter.text = "Score: " + GameManager.Instance.Score.ToString();
+    }
+
+    public void DisplayCrosshair(bool active)
+    {
+        crosshair.SetActive(active);
     }
 
     public void DisplayGameScreen(bool active)
@@ -89,5 +96,10 @@ public class UIManager : Singleton<UIManager>
         levelSelectScreen.SetActive(active);
 
         level2Button.SetActive(active && SaveManager.Instance.saveData.levelSaves[1].levelUnlocked);
+    }
+
+    public void DisplayOptionsMenu(bool active)
+    {
+        optionsScreen.SetActive(active);
     }
 }
