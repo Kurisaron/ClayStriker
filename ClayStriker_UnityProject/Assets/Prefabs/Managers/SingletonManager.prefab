@@ -930,12 +930,12 @@ PrefabInstance:
     - target: {fileID: 2585515530509563356, guid: ada98c72f95df54429150c063b9b9c1a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: -996.23956
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2585515530509563356, guid: ada98c72f95df54429150c063b9b9c1a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -560.38477
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2585515530509563356, guid: ada98c72f95df54429150c063b9b9c1a,
         type: 3}
@@ -1006,6 +1006,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MainMenuScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 5520594568625526535, guid: ada98c72f95df54429150c063b9b9c1a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6060306755896351519, guid: ada98c72f95df54429150c063b9b9c1a,
         type: 3}
