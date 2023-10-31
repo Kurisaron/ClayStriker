@@ -7,6 +7,7 @@ using static GameManager;
 
 public class UIManager : Singleton<UIManager>
 {
+    // SCREENS
     [SerializeField] private GameObject gameScreen;
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject leaderboardScreen;
@@ -14,10 +15,15 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject levelSelectScreen;
     [SerializeField] private GameObject optionsScreen;
     [SerializeField] private GameObject creditsScreen;
+
+    // UI PARTS
     [SerializeField] private GameObject crosshair;
     [SerializeField] private Text scoreCounter;
     [SerializeField] private Text nextLevelButtonText;
     [SerializeField] private GameObject level2Button;
+
+    // PAT DIALOGUE
+    public PatController patController;
 
     public void DisplayMainMenu(bool active)
     {
@@ -102,4 +108,20 @@ public class UIManager : Singleton<UIManager>
     {
         optionsScreen.SetActive(active);
     }
+}
+
+[Serializable]
+public class PatController
+{
+    [SerializeField] private GameObject patWindow;
+    [SerializeField] private Image patFace;
+    [SerializeField] private Text patDialogue;
+
+
+}
+
+public enum PatDialogueContext
+{
+    Level1_Start,
+    Level1_,
 }
