@@ -4274,12 +4274,6 @@ MonoBehaviour:
   - bunkerAIndex: 5
     bunkerBIndex: 6
     delay: 1
-  - bunkerAIndex: 6
-    bunkerBIndex: 7
-    delay: 1.1
-  - bunkerAIndex: 7
-    bunkerBIndex: 3
-    delay: 2
   activeTargets: []
   arrivalAngle: 90
 --- !u!135 &106174514
