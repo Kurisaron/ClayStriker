@@ -50,6 +50,7 @@ public class Stop : MonoBehaviour
 
     private IEnumerator FiringSequenceRoutine()
     {
+        //Debug.LogError("Firing sequence started");
         for (int i = 0; i < firingSequence.Count; ++i)
         {
             FiringStep step = firingSequence[i];
@@ -58,8 +59,10 @@ public class Stop : MonoBehaviour
             if (bunkers[step.bunkerBIndex] != null) activeTargets.Add(bunkers[step.bunkerBIndex].ShootTarget(this));
         }
 
+        //Debug.LogError("Firing sequence ended");
         yield return new WaitUntil(() => activeTargets.Count <= 0);
 
+        //Debug.LogError("Passing to next stop");
         PassOn();
     }
 

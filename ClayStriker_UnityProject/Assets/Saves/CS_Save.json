@@ -21,7 +21,7 @@
         },
         {
             "levelNum": 2,
-            "levelUnlocked": false,
+            "levelUnlocked": true,
             "leaderboard": [
                 0,
                 0,

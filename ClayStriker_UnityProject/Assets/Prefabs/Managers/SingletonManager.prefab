@@ -290,7 +290,7 @@ MonoBehaviour:
     - Level1
   playerPrefab: {fileID: 1533705738761902056, guid: fa53196b5c5da5547ac4ab464fdc152f,
     type: 3}
-  bunkerPrefab: {fileID: 7259661552753296109, guid: 544ab86ace446f34d9360afd99a52430,
+  bunkerPrefab: {fileID: 7604479232146857244, guid: e9e6978528a3d964db13cd983db0734a,
     type: 3}
 --- !u!114 &8851091497683951467
 MonoBehaviour:
@@ -315,6 +315,10 @@ MonoBehaviour:
   scoreCounter: {fileID: 8200977809652924383}
   nextLevelButtonText: {fileID: 1828699878667733490}
   level2Button: {fileID: 8575853420039400196}
+  patController:
+    patWindow: {fileID: 0}
+    patFace: {fileID: 0}
+    patDialogue: {fileID: 0}
 --- !u!114 &1672491624100761643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -456,6 +460,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4578796178132694485}
+    - target: {fileID: 4486148514456301576, guid: 0c226aa6aa29ac147b1e231c8e11af8c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4486148514456301576, guid: 0c226aa6aa29ac147b1e231c8e11af8c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
