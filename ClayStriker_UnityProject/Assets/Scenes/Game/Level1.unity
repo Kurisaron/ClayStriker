@@ -4276,6 +4276,7 @@ MonoBehaviour:
     delay: 1
   activeTargets: []
   arrivalAngle: 90
+  patDepartureDialogue: 0
 --- !u!135 &106174514
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -21035,6 +21036,7 @@ MonoBehaviour:
     delay: 0.5
   activeTargets: []
   arrivalAngle: 90
+  patDepartureDialogue: 3
 --- !u!135 &524711366
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -42989,6 +42991,7 @@ MonoBehaviour:
     delay: 2.5
   activeTargets: []
   arrivalAngle: 90
+  patDepartureDialogue: 2
 --- !u!135 &1084005981
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -46263,6 +46266,7 @@ MonoBehaviour:
   firingSequence: []
   activeTargets: []
   arrivalAngle: 90
+  patDepartureDialogue: 1
 --- !u!135 &1187566726
 SphereCollider:
   m_ObjectHideFlags: 0

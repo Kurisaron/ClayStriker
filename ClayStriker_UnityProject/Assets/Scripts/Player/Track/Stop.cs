@@ -26,6 +26,8 @@ public class Stop : MonoBehaviour
         }
     }
 
+    [SerializeField] private PatDialogueContext patDepartureDialogue;
+
     public Stop Init(Track t)
     {
         track = t;
@@ -68,7 +70,15 @@ public class Stop : MonoBehaviour
 
     private void Arrived() => track.Arrived();
 
-    private void PassOn() => track.PassOn();
+    private void PassOn()
+    {
+        if (patDepartureDialogue != PatDialogueContext.None)
+        {
+            UIManager.Instance.patController.DisplayDialogue(patDepartureDialogue);
+        }
+
+        track.PassOn();
+    }
 
     #if UNITY_EDITOR
     private void OnDrawGizmos()

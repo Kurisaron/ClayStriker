@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using static GameManager;
@@ -48,6 +50,11 @@ public class UIManager : Singleton<UIManager>
     public void DisplayPauseScreen(bool active)
     {
         pauseScreen.SetActive(active);
+    }
+
+    public void DisplayCreditsScreen(bool active)
+    {
+        creditsScreen.SetActive(active);
     }
 
     public void DisplayLeaderboard(int level, int newScoreIndex)
@@ -115,13 +122,64 @@ public class PatController
 {
     [SerializeField] private GameObject patWindow;
     [SerializeField] private Image patFace;
-    [SerializeField] private Text patDialogue;
+    [SerializeField] private Text patSpeech;
 
+    [SerializeField] private List<PatDialogue> dialogues;
+    private PatDialoguePart[] activeDialogue;
 
+    public async void DisplayDialogue(PatDialogueContext dialogueContext)
+    {
+        PatDialogue dialogue = dialogues.Find(check => check.Context == dialogueContext);
+        if (dialogue.Context == PatDialogueContext.None) return;
+        if (dialogue == null)
+        {
+            Debug.LogError("No dialogue matching context");
+            return;
+        }
+        activeDialogue = dialogue;
+
+        PatWindowActive(true);
+        for (int i = 0; i < activeDialogue.Length; ++i)
+        {
+            SetPatDialogue(activeDialogue[i].Face, activeDialogue[i].Speech);
+            await Task.Delay(TimeSpan.FromSeconds(3.0));
+        }
+        PatWindowActive(false);
+    }
+
+    private void PatWindowActive(bool active) => patWindow.SetActive(active);
+
+    private void SetPatDialogue(Sprite face, string speech)
+    {
+        if (face != null) patFace.sprite = face;
+        else Debug.LogWarning("No face available for current dialogue.");
+        patSpeech.text = speech;
+    }
+}
+
+[Serializable]
+public class PatDialogue
+{
+    [SerializeField] private PatDialogueContext context;
+    public PatDialogueContext Context { get => context; }
+    [SerializeField] private PatDialoguePart[] parts;
+
+    public static implicit operator PatDialoguePart[](PatDialogue patDialogue) => patDialogue.parts;
+}
+
+[Serializable]
+public class PatDialoguePart
+{
+    [SerializeField] private Sprite face;
+    public Sprite Face { get => face; }
+    [SerializeField] private string speech;
+    public string Speech { get => speech; }
 }
 
 public enum PatDialogueContext
 {
+    None,
     Level1_Start,
-    Level1_,
+    Level1_AfterStation1,
+    Level1_AfterStation2,
 }

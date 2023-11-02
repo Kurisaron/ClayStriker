@@ -160,6 +160,7 @@ public class GameManager : Singleton<GameManager>
             UIManager.Instance.DisplayMainMenu(displayMainMenu);
             UIManager.Instance.DisplayLevelSelect(displayLevelSelect);
             UIManager.Instance.DisplayGameScreen(displayGameScreen);
+            UIManager.Instance.DisplayCreditsScreen(displayCreditsScreen);
             InputEvents.Instance.SetInputState(targetState);
 
         }
