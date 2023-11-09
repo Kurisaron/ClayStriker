@@ -56,6 +56,7 @@ public class Track : Singleton<Track>
         newPlayer.transform.position = currentStop.transform.position;
         player = newPlayer.GetComponent<Player>();
         player.SetBearing(new Func<Vector3>(() => currentStop.ArrivalDirection));
+        if (currentStop.PatDepartureDialogue != PatDialogueContext.None) UIManager.Instance.patController.DisplayDialogue(currentStop.PatDepartureDialogue);
 
         if (route.Count > 0) targetStop = route.Dequeue();
         else Debug.LogError("No stops to put as first target");
@@ -81,7 +82,7 @@ public class Track : Singleton<Track>
     {
         InputEvents.Instance.SetInputState(InputState.Menu);
 
-        int levelNum = GameManager.Instance.levelManager.GetLevelNum();
+        int levelNum = GameManager.Instance.sceneLoader.GetLevelNum();
         SaveManager.Instance.NewScore(levelNum - 1, GameManager.Instance.Score, out int newScoreIndex);
         SaveManager.Instance.WriteSaveFile();
         GameManager.Instance.ResetScore();

@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraSettings:
-    turnSpeed: 0.25
+    turnSpeed: 0.1
     yLimitLower: 25
     yLimitUpper: 45
     xLimit: 45

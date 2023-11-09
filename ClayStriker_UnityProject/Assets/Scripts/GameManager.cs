@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
-    public LevelManager levelManager;
+    public SceneLoader sceneLoader;
     
     public GameObject playerPrefab;
     public GameObject bunkerPrefab;
@@ -24,18 +25,20 @@ public class GameManager : Singleton<GameManager>
             Time.timeScale = value ? 0 : 1;
             InputEvents.Instance.SetInputState(value ? InputState.PauseMenu : InputState.Game);
             UIManager.Instance.DisplayPauseScreen(value);
+            UIManager.Instance.DisplayOptionsMenu(false);
         }
     }
+    private string optionsContext = "";
     
     public override void Awake()
     {
         base.Awake();
 
         Score = 0;
-        if (SceneManager.GetActiveScene().name == levelManager.loadingSceneName)
+        if (SceneManager.GetActiveScene().name == sceneLoader.loadingSceneName)
         {
-            levelManager.LoadLevel(0);
-            InputEvents.Instance.SetInputState(InputState.Menu);
+            sceneLoader.LoadMainMenu();
+            //InputEvents.Instance.SetInputState(InputState.Menu);
         }
     }
 
@@ -55,29 +58,69 @@ public class GameManager : Singleton<GameManager>
 
 
     #region Button Events
+    public void MainMenuButton()
+    {
+        sceneLoader.LoadMainMenu();
+    }
 
     public void LevelSelectButton()
     {
-        levelManager.LoadLevel(0);
+        sceneLoader.LoadLevel(0);
+    }
+
+    public void OptionsButton(string context)
+    {
+        optionsContext = context;
+
+        if (context.Equals("MainMenu"))
+        {
+            UIManager.Instance.DisplayMainMenu(false);
+            UIManager.Instance.DisplayOptionsMenu(true);
+        }
+
+        if (context.Equals("PauseMenu"))
+        {
+            UIManager.Instance.DisplayPauseScreen(false);
+            UIManager.Instance.DisplayOptionsMenu(true);
+        }
+    }
+
+    public void OptionsReturn()
+    {
+        if (optionsContext.Equals("MainMenu"))
+        {
+            UIManager.Instance.DisplayMainMenu(true);
+            UIManager.Instance.DisplayOptionsMenu(false);
+        }
+
+        if (optionsContext.Equals("PauseMenu"))
+        {
+            UIManager.Instance.DisplayPauseScreen(true);
+            UIManager.Instance.DisplayOptionsMenu(false);
+        }
+
+        SaveManager.Instance.WriteSaveFile();
     }
 
     public void NextLevelButton()
     {
-        if (levelManager.GetLevelNum() >= levelManager.levelNames.Length - 1) levelManager.LoadCredits();
-        else levelManager.LoadLevel(levelManager.GetLevelNum() + 1);
+        if (sceneLoader.GetLevelNum() >= sceneLoader.levelNames.Length - 1) sceneLoader.LoadCredits();
+        else sceneLoader.LoadLevel(sceneLoader.GetLevelNum() + 1);
     }
 
     public void LevelButton(int level)
     {
         UIManager.Instance.DisplayLevelSelect(false);
-        levelManager.LoadLevel(level);
+        sceneLoader.LoadLevel(level);
     }
 
 
 
     public void QuitButton()
     {
-        
+        #if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+        #endif
 
         Application.Quit();
     }
@@ -85,12 +128,15 @@ public class GameManager : Singleton<GameManager>
     #endregion
 
     [Serializable]
-    public class LevelManager
+    public class SceneLoader
     {
         public string loadingSceneName;
+        public string mainMenuSceneName;
         public string creditsSceneName;
         [Tooltip("Element 0 = Level Select, all others match their level order")]
         public string[] levelNames;
+
+        public void LoadMainMenu() => LoadScene(mainMenuSceneName, SceneLoadType.MainMenu);
 
         public void LoadLevel(int num)
         {
@@ -101,22 +147,16 @@ public class GameManager : Singleton<GameManager>
             }
 
             bool isLoadingGameLevel = num > 0;
-            LoadReset(isLoadingGameLevel, !isLoadingGameLevel, isLoadingGameLevel ? InputState.Game : InputState.Menu);
 
-            LoadScene(levelNames[num]);
+            LoadScene(levelNames[num], isLoadingGameLevel ? SceneLoadType.GameLevel : SceneLoadType.LevelSelect);
 
         }
 
-        public void LoadCredits()
-        {
-            LoadReset(false, false, InputState.Menu);
-            LoadScene(creditsSceneName);
-        }
+        public void LoadCredits() => LoadScene(creditsSceneName, SceneLoadType.Credits);
 
-        private void LoadReset(bool displayGameScreen, bool displayLevelSelect, InputState targetState)
+        private void LoadReset(bool displayMainMenu, bool displayLevelSelect, bool displayGameScreen, bool displayCreditsScreen, InputState targetState)
         {
             UIManager.Instance.HideLeaderboard();
-            UIManager.Instance.DisplayGameScreen(displayGameScreen);
             GameManager.Instance.GamePaused = false;
 
             if (GetLevelNum() > 0)
@@ -126,12 +166,42 @@ public class GameManager : Singleton<GameManager>
                 Destroy(track.gameObject);
             }
 
+            UIManager.Instance.patController.PatWindowActive(false);
+            UIManager.Instance.DisplayMainMenu(displayMainMenu);
             UIManager.Instance.DisplayLevelSelect(displayLevelSelect);
+            UIManager.Instance.DisplayGameScreen(displayGameScreen);
+            UIManager.Instance.DisplayCreditsScreen(displayCreditsScreen);
             InputEvents.Instance.SetInputState(targetState);
 
         }
 
-        private void LoadScene(string levelName) => SceneManager.LoadScene(levelName, LoadSceneMode.Single);
+        private void LoadScene(string levelName, SceneLoadType sceneLoadType)
+        {
+            (bool mainMenu, bool levelSelect, bool gameScreen, bool creditsScreen, InputState targetState) display = (false, false, false, false, InputState.Menu);
+            switch (sceneLoadType)
+            {
+                case SceneLoadType.MainMenu:
+                    display = (true, false, false, false, InputState.Menu);
+                    break;
+                case SceneLoadType.LevelSelect:
+                    display = (false, true, false, false, InputState.Menu);
+                    break;
+                case SceneLoadType.GameLevel:
+                    display = (false, false, true, false, InputState.Game);
+                    break;
+                case SceneLoadType.Credits:
+                    display = (false, false, false, true, InputState.Menu);
+                    break;
+                default:
+                    Debug.LogError("Somehow sceneLoadType did not match available values");
+                    break;
+            }
+
+            //Debug.LogWarning("DISPLAY CONDITIONS FOUND");
+            LoadReset(display.mainMenu, display.levelSelect, display.gameScreen, display.creditsScreen, display.targetState);
+            //Debug.LogWarning("DISPLAY CONDITIONS SET");
+            SceneManager.LoadScene(levelName, LoadSceneMode.Single);
+        }
 
         public int GetLevelNum()
         {
@@ -154,5 +224,15 @@ public class GameManager : Singleton<GameManager>
         {
             return SceneManager.GetActiveScene().name == levelNames[0];
         }
+
+        public enum SceneLoadType
+        {
+            MainMenu,
+            LevelSelect,
+            GameLevel,
+            Credits
+        }
     }
+
 }
+

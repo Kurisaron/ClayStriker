@@ -17,6 +17,14 @@ public class Target : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, Player.Instance.gameObject.transform.position) > 100.0f)
         {
+
+            if (parentStop != null)
+            {
+                //Debug.LogError("Parent stop has " + (parentStop.activeTargets.Count - 1).ToString() + " targets left");
+                parentStop.activeTargets.Remove(this);
+                parentStop = null;
+            }
+
             Destroy(gameObject);
         }
     }
@@ -24,13 +32,20 @@ public class Target : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.GetBaseTransform().gameObject.name.Contains("Bunker")) return;
-        
+        Transform otherBaseGO = other.transform.GetBaseTransform();
+        if (otherBaseGO.name.Contains("Bunker") || otherBaseGO.name.Contains("Spawner")) return;
+
+        if (parentStop != null)
+        {
+            //Debug.LogError("Parent stop has " + (parentStop.activeTargets.Count - 1).ToString() + " targets left");
+            parentStop.activeTargets.Remove(this);
+            parentStop = null;
+        }
+
         if (!isSmashed && other.gameObject.transform.GetBaseTransform().gameObject.name.Contains("Bullet"))
         {
             GameManager.Instance.AddScore(pointValue);
         }
-        if (parentStop != null) parentStop.activeTargets.Remove(this);
 
         isSmashed = true;
         Destroy(gameObject);

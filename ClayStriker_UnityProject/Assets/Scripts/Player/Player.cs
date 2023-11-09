@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : Singleton<Player>
 {
-    [SerializeField, Tooltip("ONLY CHANGE IN PLAYER PREFAB")] private CameraSettings cameraSettings;
+    private CameraSettings cameraSettings { get => UIManager.Instance.cameraSettings; }
     private (Transform body, Transform camera, Transform gun) movingParts;
     private Func<Vector3> shootBearing;
     public bool IsRecoiling { get; private set; }
@@ -128,12 +128,11 @@ public class Player : Singleton<Player>
     {
         IsRecoiling = true;
 
-        (float time, float duration) recoil = (0.0f, 0.5f);
+        (float time, float duration) recoil = (0.0f, 0.05f);
         while (recoil.time <= recoil.duration)
         {
-            
-            
             yield return null;
+            Look(Vector2.up * Time.deltaTime * (60.0f / cameraSettings.turnSpeed));
             recoil.time += Time.deltaTime;
         }
 

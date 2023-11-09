@@ -26,6 +26,9 @@ public class Stop : MonoBehaviour
         }
     }
 
+    [SerializeField] private PatDialogueContext patDepartureDialogue;
+    public PatDialogueContext PatDepartureDialogue { get => patDepartureDialogue; }
+
     public Stop Init(Track t)
     {
         track = t;
@@ -50,6 +53,7 @@ public class Stop : MonoBehaviour
 
     private IEnumerator FiringSequenceRoutine()
     {
+        //Debug.LogError("Firing sequence started");
         for (int i = 0; i < firingSequence.Count; ++i)
         {
             FiringStep step = firingSequence[i];
@@ -58,14 +62,24 @@ public class Stop : MonoBehaviour
             if (bunkers[step.bunkerBIndex] != null) activeTargets.Add(bunkers[step.bunkerBIndex].ShootTarget(this));
         }
 
+        //Debug.LogError("Firing sequence ended");
         yield return new WaitUntil(() => activeTargets.Count <= 0);
 
+        //Debug.LogError("Passing to next stop");
         PassOn();
     }
 
     private void Arrived() => track.Arrived();
 
-    private void PassOn() => track.PassOn();
+    private void PassOn()
+    {
+        if (patDepartureDialogue != PatDialogueContext.None)
+        {
+            UIManager.Instance.patController.DisplayDialogue(patDepartureDialogue);
+        }
+
+        track.PassOn();
+    }
 
     #if UNITY_EDITOR
     private void OnDrawGizmos()
