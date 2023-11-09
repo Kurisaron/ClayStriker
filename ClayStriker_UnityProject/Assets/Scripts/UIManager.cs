@@ -124,6 +124,8 @@ public class PatController
     [SerializeField] private Image patFace;
     [SerializeField] private Text patSpeech;
 
+    [SerializeField] private List<PatFace> patFaces;
+
     [SerializeField] private List<PatDialogue> dialogues;
     private PatDialoguePart[] activeDialogue;
 
@@ -149,9 +151,10 @@ public class PatController
 
     private void PatWindowActive(bool active) => patWindow.SetActive(active);
 
-    private void SetPatDialogue(Sprite face, string speech)
+    private void SetPatDialogue(PatFaceEnum face, string speech)
     {
-        if (face != null) patFace.sprite = face;
+        Sprite sprite = patFaces.Find(patFace => patFace.faceEnum == face).faceSprite;
+        if (sprite != null) patFace.sprite = sprite;
         else Debug.LogWarning("No face available for current dialogue.");
         patSpeech.text = speech;
     }
@@ -170,10 +173,17 @@ public class PatDialogue
 [Serializable]
 public class PatDialoguePart
 {
-    [SerializeField] private Sprite face;
-    public Sprite Face { get => face; }
+    [SerializeField] private PatFaceEnum face;
+    public PatFaceEnum Face { get => face; }
     [SerializeField] private string speech;
     public string Speech { get => speech; }
+}
+
+[Serializable]
+public class PatFace
+{
+    public PatFaceEnum faceEnum;
+    public Sprite faceSprite;
 }
 
 public enum PatDialogueContext
@@ -182,4 +192,17 @@ public enum PatDialogueContext
     Level1_Start,
     Level1_AfterStation1,
     Level1_AfterStation2,
+}
+
+public enum PatFaceEnum
+{
+    Neutral,
+    NeutralTalking,
+    Happy,
+    HappyTalking,
+    HappyExtreme,
+    Disappointed,
+    DisappointedTalking,
+    DisappointedExtreme,
+    DisappointedExtremeTalking
 }

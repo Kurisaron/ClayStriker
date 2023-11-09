@@ -56,6 +56,7 @@ public class Track : Singleton<Track>
         newPlayer.transform.position = currentStop.transform.position;
         player = newPlayer.GetComponent<Player>();
         player.SetBearing(new Func<Vector3>(() => currentStop.ArrivalDirection));
+        if (currentStop.PatDepartureDialogue != PatDialogueContext.None) UIManager.Instance.patController.DisplayDialogue(currentStop.PatDepartureDialogue);
 
         if (route.Count > 0) targetStop = route.Dequeue();
         else Debug.LogError("No stops to put as first target");

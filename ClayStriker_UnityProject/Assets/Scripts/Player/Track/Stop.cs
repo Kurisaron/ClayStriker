@@ -27,6 +27,7 @@ public class Stop : MonoBehaviour
     }
 
     [SerializeField] private PatDialogueContext patDepartureDialogue;
+    public PatDialogueContext PatDepartureDialogue { get => patDepartureDialogue; }
 
     public Stop Init(Track t)
     {
