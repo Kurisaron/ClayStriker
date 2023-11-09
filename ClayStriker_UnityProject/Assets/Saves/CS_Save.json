@@ -4,6 +4,7 @@
             "width": 1920,
             "height": 1080
         },
+        "sensitivityLevel": 0.5,
         "audioLevel": 1.0,
         "crosshairActive": true
     },
@@ -12,7 +13,7 @@
             "levelNum": 1,
             "levelUnlocked": true,
             "leaderboard": [
-                100,
+                0,
                 0,
                 0,
                 0,

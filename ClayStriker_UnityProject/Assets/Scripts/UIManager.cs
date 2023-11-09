@@ -9,6 +9,8 @@ using static GameManager;
 
 public class UIManager : Singleton<UIManager>
 {
+    public CameraSettings cameraSettings;
+    
     // SCREENS
     [SerializeField] private GameObject gameScreen;
     [SerializeField] private GameObject pauseScreen;
@@ -23,6 +25,9 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Text scoreCounter;
     [SerializeField] private Text nextLevelButtonText;
     [SerializeField] private GameObject level2Button;
+    [SerializeField] private Slider sensitivitySlider;
+    [SerializeField] private Slider audioSlider;
+    [SerializeField] private Toggle crosshairToggle;
 
     // PAT DIALOGUE
     public PatController patController;
@@ -114,6 +119,26 @@ public class UIManager : Singleton<UIManager>
     public void DisplayOptionsMenu(bool active)
     {
         optionsScreen.SetActive(active);
+
+        sensitivitySlider.value = SaveManager.Instance.saveData.options.SensitivityLevel;
+        audioSlider.value = SaveManager.Instance.saveData.options.AudioLevel;
+        crosshairToggle.isOn = SaveManager.Instance.saveData.options.CrosshairActive;
+    }
+
+    public Coroutine StartDialogRoutine(PatDialogue patDialogue)
+    {
+        return StartCoroutine(DialogRoutine(patDialogue));
+    }
+
+    private IEnumerator DialogRoutine(PatDialoguePart[] dialogueParts)
+    {
+        patController.PatWindowActive(true);
+        for (int i = 0; i < dialogueParts.Length; ++i)
+        {
+            patController.SetPatDialogue(dialogueParts[i].Face, dialogueParts[i].Speech);
+            yield return new WaitForSeconds(3.0f);
+        }
+        patController.PatWindowActive(false);
     }
 }
 
@@ -127,9 +152,9 @@ public class PatController
     [SerializeField] private List<PatFace> patFaces;
 
     [SerializeField] private List<PatDialogue> dialogues;
-    private PatDialoguePart[] activeDialogue;
+    private Coroutine activeDialogue;
 
-    public async void DisplayDialogue(PatDialogueContext dialogueContext)
+    public void DisplayDialogue(PatDialogueContext dialogueContext)
     {
         PatDialogue dialogue = dialogues.Find(check => check.Context == dialogueContext);
         if (dialogue.Context == PatDialogueContext.None) return;
@@ -138,20 +163,18 @@ public class PatController
             Debug.LogError("No dialogue matching context");
             return;
         }
-        activeDialogue = dialogue;
-
-        PatWindowActive(true);
-        for (int i = 0; i < activeDialogue.Length; ++i)
+        if (activeDialogue != null)
         {
-            SetPatDialogue(activeDialogue[i].Face, activeDialogue[i].Speech);
-            await Task.Delay(TimeSpan.FromSeconds(3.0));
+            UIManager.Instance.StopCoroutine(activeDialogue);
+            activeDialogue = null;
         }
-        PatWindowActive(false);
+        activeDialogue = UIManager.Instance.StartDialogRoutine(dialogue);
+
     }
 
-    private void PatWindowActive(bool active) => patWindow.SetActive(active);
+    public void PatWindowActive(bool active) => patWindow.SetActive(active);
 
-    private void SetPatDialogue(PatFaceEnum face, string speech)
+    public void SetPatDialogue(PatFaceEnum face, string speech)
     {
         Sprite sprite = patFaces.Find(patFace => patFace.faceEnum == face).faceSprite;
         if (sprite != null) patFace.sprite = sprite;

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -57,6 +58,10 @@ public class GameManager : Singleton<GameManager>
 
 
     #region Button Events
+    public void MainMenuButton()
+    {
+        sceneLoader.LoadMainMenu();
+    }
 
     public void LevelSelectButton()
     {
@@ -93,6 +98,8 @@ public class GameManager : Singleton<GameManager>
             UIManager.Instance.DisplayPauseScreen(true);
             UIManager.Instance.DisplayOptionsMenu(false);
         }
+
+        SaveManager.Instance.WriteSaveFile();
     }
 
     public void NextLevelButton()
@@ -111,7 +118,9 @@ public class GameManager : Singleton<GameManager>
 
     public void QuitButton()
     {
-        
+        #if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+        #endif
 
         Application.Quit();
     }
@@ -157,6 +166,7 @@ public class GameManager : Singleton<GameManager>
                 Destroy(track.gameObject);
             }
 
+            UIManager.Instance.patController.PatWindowActive(false);
             UIManager.Instance.DisplayMainMenu(displayMainMenu);
             UIManager.Instance.DisplayLevelSelect(displayLevelSelect);
             UIManager.Instance.DisplayGameScreen(displayGameScreen);

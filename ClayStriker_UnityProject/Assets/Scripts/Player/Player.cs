@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : Singleton<Player>
 {
-    [SerializeField, Tooltip("ONLY CHANGE IN PLAYER PREFAB")] private CameraSettings cameraSettings;
+    private CameraSettings cameraSettings { get => UIManager.Instance.cameraSettings; }
     private (Transform body, Transform camera, Transform gun) movingParts;
     private Func<Vector3> shootBearing;
     public bool IsRecoiling { get; private set; }

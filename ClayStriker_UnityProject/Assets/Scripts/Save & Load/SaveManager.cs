@@ -42,6 +42,7 @@ public class SaveManager : Singleton<SaveManager>
             SaveData saveData = JsonUtility.FromJson<SaveData>(contents);
             // Set in-game functions to reflect saved option values
             saveData.options.Resolution = saveData.options.Resolution;
+            saveData.options.SensitivityLevel = saveData.options.SensitivityLevel;
             saveData.options.AudioLevel = saveData.options.AudioLevel;
             saveData.options.CrosshairActive = saveData.options.CrosshairActive;
             return saveData;
@@ -78,6 +79,11 @@ public class SaveManager : Singleton<SaveManager>
     public void ResolutionDropdown(Dropdown dropdown)
     {
         saveData.options.Resolution = OptionsSave.ResolutionSave.GetResolution((ResolutionOption)dropdown.value);
+    }
+
+    public void SensitivitySlider(Slider slider)
+    {
+        saveData.options.SensitivityLevel = slider.value;
     }
 
     public void AudioSlider(Slider slider)
@@ -124,6 +130,16 @@ public class OptionsSave
             Debug.Log("Screen Resolution is now " + value.width.ToString() + " x " + value.height.ToString());
         }
     }
+    [SerializeField] private float sensitivityLevel;
+    public float SensitivityLevel
+    {
+        get => sensitivityLevel;
+        set
+        {
+            sensitivityLevel = value;
+            UIManager.Instance.cameraSettings.turnSpeed = Mathf.Lerp(0.0f, 0.5f, value);
+        }
+    }
     [SerializeField] private float audioLevel;
     public float AudioLevel
     {
@@ -148,6 +164,7 @@ public class OptionsSave
     public OptionsSave(ResolutionSave resolutionSave)
     {
         resolution = resolutionSave;
+        sensitivityLevel = 0.5f;
         audioLevel = 1.0f;
         crosshairActive = true;
     }
