@@ -25,6 +25,7 @@ public class Target : MonoBehaviour
                 parentStop = null;
             }
 
+            VFXManager.Instance.TargetBreak(transform.position, GetComponent<Rigidbody>().velocity.normalized);
             Destroy(gameObject);
         }
     }
@@ -48,6 +49,7 @@ public class Target : MonoBehaviour
         }
 
         isSmashed = true;
+        VFXManager.Instance.TargetBreak(transform.position, GetComponent<Rigidbody>().velocity.normalized);
         Destroy(gameObject);
     }
 }
