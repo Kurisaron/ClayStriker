@@ -41,6 +41,8 @@ public static class Utils
 
         return false;
     }
+
+    public static void SetPositionRotationAndParent(this Transform transform, Transform parent) => transform.SetPositionRotationAndParent(parent.position, parent.rotation, parent);
     
     /// <summary>
     /// Set the world position, rotation, and the parent of the provided transform

@@ -25,7 +25,8 @@ public class Target : MonoBehaviour
                 parentStop = null;
             }
 
-            VFXManager.Instance.TargetBreak(transform.position, GetComponent<Rigidbody>().velocity.normalized);
+            // Line below commented out as per programmer discretion, realized it was unnecessary to play VFX when the targets are too far from the player
+            // VFXManager.Instance.TargetBreak(transform.position, GetComponent<Rigidbody>().velocity.normalized);
             Destroy(gameObject);
         }
     }
