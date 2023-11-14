@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -197,11 +198,10 @@ public class GameManager : Singleton<GameManager>
                     break;
             }
 
-            //Debug.LogWarning("DISPLAY CONDITIONS FOUND");
             LoadReset(display.mainMenu, display.levelSelect, display.gameScreen, display.creditsScreen, display.targetState);
-            //Debug.LogWarning("DISPLAY CONDITIONS SET");
             SceneManager.LoadScene(levelName, LoadSceneMode.Single);
         }
+
 
         public int GetLevelNum()
         {

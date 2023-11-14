@@ -23,10 +23,12 @@ public class SaveManager : Singleton<SaveManager>
             return;
         }
 
+        /*
         foreach (LevelSave levelSave in saveData.levelSaves)
         {
             Debug.Log(levelSave.PrintScores());
         }
+        */
     }
 
     public SaveData ReadSaveFile()

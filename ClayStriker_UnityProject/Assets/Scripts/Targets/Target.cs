@@ -51,6 +51,7 @@ public class Target : MonoBehaviour
 
         isSmashed = true;
         VFXManager.Instance.TargetBreak(transform.position, GetComponent<Rigidbody>().velocity.normalized);
+        SoundManager.Instance.PlaySFX(SoundContext.TargetBreak);
         Destroy(gameObject);
     }
 }

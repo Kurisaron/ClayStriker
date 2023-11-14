@@ -32,7 +32,7 @@ public class SoundManager : Singleton<SoundManager>
         mPlayer.transform.SetPositionRotationAndParent(soundParent);
         musicPlayer = mPlayer.AddComponent<AudioSource>();
         musicPlayer.loop = true;
-        Debug.Log("Music player added to sound manager");
+        //Debug.Log("Music player added to sound manager");
     }
 
     private void SetupSFXPlayers()
@@ -42,6 +42,7 @@ public class SoundManager : Singleton<SoundManager>
 
         sfxPlayers = new List<AudioSource>();
     }
+
 
     public void PlaySFX(SoundContext context)
     {
@@ -53,6 +54,7 @@ public class SoundManager : Singleton<SoundManager>
         }
 
         PlaySFX(sound.clip);
+        Debug.Log("SFX played: " + context.ToString());
     }
 
     private async void PlaySFX(AudioClip clip)
@@ -81,7 +83,7 @@ public class SoundManager : Singleton<SoundManager>
 
     private async Task WaitForPlayComplete(AudioSource source)
     {
-        while (source.isPlaying) await Task.Yield();
+        while (source != null && source.isPlaying) await Task.Yield();
     }
 }
 
@@ -94,5 +96,8 @@ public class Sound
 
 public enum SoundContext
 {
-
+    BulletShoot,
+    TargetBreak,
+    PatRegular,
+    PatDisappointed
 }
