@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,7 +6,7 @@ using UnityEngine;
 
 public static class Utils
 {
-    public static Color RandomColor() => new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), 1.0f);
+    public static Color RandomColor() => new Color(UnityEngine.Random.Range(0.0f, 1.0f), UnityEngine.Random.Range(0.0f, 1.0f), UnityEngine.Random.Range(0.0f, 1.0f), 1.0f);
 
     //============
     // EXTENSIONS
@@ -28,6 +29,17 @@ public static class Utils
             child = child.parent;
         }
         return child;
+    }
+
+    public static bool HasParent(this Transform child, string name)
+    {
+        while (child.parent != null)
+        {
+            child = child.parent;
+            if (child.gameObject.name.Contains(name, StringComparison.CurrentCultureIgnoreCase)) return true;
+        }
+
+        return false;
     }
     
     /// <summary>
