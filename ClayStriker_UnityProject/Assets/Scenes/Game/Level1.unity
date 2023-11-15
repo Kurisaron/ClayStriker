@@ -1577,7 +1577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa25ca24e8c286a47bbda01c4aab4555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootForceMult: 12
+  shootForceMult: 11.5
   targetPrefab: {fileID: 2088387063115611136, guid: 8246ebf12fb856f49960a236bd3aa15d,
     type: 3}
   isAuto: 0
@@ -4262,23 +4262,23 @@ MonoBehaviour:
   - {fileID: 318438205}
   firingSequence:
   - bunkerAIndex: 0
-    bunkerBIndex: 1
+    bunkerBIndex: 6
     delay: 2.5
   - bunkerAIndex: 1
-    bunkerBIndex: 2
-    delay: 0.5
+    bunkerBIndex: 4
+    delay: 2
   - bunkerAIndex: 2
-    bunkerBIndex: 3
+    bunkerBIndex: 6
     delay: 3
   - bunkerAIndex: 3
     bunkerBIndex: 4
     delay: 4
   - bunkerAIndex: 4
     bunkerBIndex: 5
-    delay: 2
+    delay: 4.5
   - bunkerAIndex: 5
     bunkerBIndex: 6
-    delay: 1.5
+    delay: 5
   activeTargets: []
   arrivalAngle: 90
 --- !u!135 &106174514
@@ -6855,7 +6855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa25ca24e8c286a47bbda01c4aab4555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootForceMult: 12
+  shootForceMult: 11.5
   targetPrefab: {fileID: 2088387063115611136, guid: 8246ebf12fb856f49960a236bd3aa15d,
     type: 3}
   isAuto: 0
@@ -21092,25 +21092,25 @@ MonoBehaviour:
   firingSequence:
   - bunkerAIndex: 0
     bunkerBIndex: 1
-    delay: 1
+    delay: 1.5
   - bunkerAIndex: 1
     bunkerBIndex: 2
-    delay: 2
+    delay: 2.5
   - bunkerAIndex: 2
-    bunkerBIndex: 3
-    delay: 1
+    bunkerBIndex: 6
+    delay: 3.5
   - bunkerAIndex: 3
-    bunkerBIndex: 4
-    delay: 2
+    bunkerBIndex: 0
+    delay: 3
   - bunkerAIndex: 4
     bunkerBIndex: 5
-    delay: 1
+    delay: 4
   - bunkerAIndex: 5
-    bunkerBIndex: 6
-    delay: 1.5
+    bunkerBIndex: 2
+    delay: 4.5
   - bunkerAIndex: 6
     bunkerBIndex: 4
-    delay: 0.5
+    delay: 5
   activeTargets: []
   arrivalAngle: 90
 --- !u!135 &524711366
@@ -22923,7 +22923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa25ca24e8c286a47bbda01c4aab4555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootForceMult: 12
+  shootForceMult: 11.5
   targetPrefab: {fileID: 2088387063115611136, guid: 8246ebf12fb856f49960a236bd3aa15d,
     type: 3}
   isAuto: 0
@@ -42834,7 +42834,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa25ca24e8c286a47bbda01c4aab4555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootForceMult: 12
+  shootForceMult: 11.5
   targetPrefab: {fileID: 2088387063115611136, guid: 8246ebf12fb856f49960a236bd3aa15d,
     type: 3}
   isAuto: 0
@@ -43295,22 +43295,22 @@ MonoBehaviour:
   - {fileID: 39480084}
   firingSequence:
   - bunkerAIndex: 0
-    bunkerBIndex: 1
-    delay: 0.5
+    bunkerBIndex: 3
+    delay: 3.5
   - bunkerAIndex: 1
-    bunkerBIndex: 2
+    bunkerBIndex: 4
     delay: 1.5
   - bunkerAIndex: 2
-    bunkerBIndex: 3
-    delay: 1
+    bunkerBIndex: 5
+    delay: 4
   - bunkerAIndex: 3
-    bunkerBIndex: 4
+    bunkerBIndex: 2
     delay: 3
   - bunkerAIndex: 4
-    bunkerBIndex: 5
+    bunkerBIndex: 0
     delay: 2
   - bunkerAIndex: 5
-    bunkerBIndex: 0
+    bunkerBIndex: 1
     delay: 2.5
   activeTargets: []
   arrivalAngle: 90
@@ -46088,7 +46088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa25ca24e8c286a47bbda01c4aab4555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootForceMult: 12
+  shootForceMult: 11.5
   targetPrefab: {fileID: 2088387063115611136, guid: 8246ebf12fb856f49960a236bd3aa15d,
     type: 3}
   isAuto: 0
@@ -48862,7 +48862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa25ca24e8c286a47bbda01c4aab4555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootForceMult: 12
+  shootForceMult: 11.5
   targetPrefab: {fileID: 2088387063115611136, guid: 8246ebf12fb856f49960a236bd3aa15d,
     type: 3}
   isAuto: 0
