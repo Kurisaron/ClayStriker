@@ -216,6 +216,10 @@ public enum PatDialogueContext
     Level1_Start,
     Level1_AfterStation1,
     Level1_AfterStation2,
+    Pass,
+    Fail,
+    CriticalPass,
+    CriticalFail
 }
 
 public enum PatFaceEnum
