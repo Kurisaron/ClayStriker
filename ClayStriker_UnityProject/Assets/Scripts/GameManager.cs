@@ -105,7 +105,7 @@ public class GameManager : Singleton<GameManager>
 
     public void NextLevelButton()
     {
-        if (sceneLoader.GetLevelNum() >= sceneLoader.levelNames.Length - 1) sceneLoader.LoadCredits();
+        if (sceneLoader.GetLevelNum() >= sceneLoader.levelNames.Length - 1 || !SaveManager.Instance.saveData.levelSaves[sceneLoader.GetLevelNum()].levelUnlocked) sceneLoader.LoadCredits();
         else sceneLoader.LoadLevel(sceneLoader.GetLevelNum() + 1);
     }
 
@@ -160,11 +160,17 @@ public class GameManager : Singleton<GameManager>
             UIManager.Instance.HideLeaderboard();
             GameManager.Instance.GamePaused = false;
 
-            if (GetLevelNum() > 0)
+            if (GetLevelNum() == 1)
             {
                 Track track = Track.Instance;
                 Destroy(track.player.gameObject);
                 Destroy(track.gameObject);
+            }
+            else if (GetLevelNum() == 2)
+            {
+                Endless endlessMode = Endless.Instance;
+                Destroy(endlessMode.player.gameObject);
+                Destroy(endlessMode.gameObject);
             }
 
             UIManager.Instance.patController.PatWindowActive(false);
@@ -212,6 +218,7 @@ public class GameManager : Singleton<GameManager>
                 if (Char.IsDigit(levelName[i])) num += levelName[i];
             }
             if (num.Length > 0) return int.Parse(num);
+            else if (levelName.ContainsInsensitive("endless")) return 2;
             else return 0;
         }
 

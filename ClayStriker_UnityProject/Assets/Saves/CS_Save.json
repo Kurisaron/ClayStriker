@@ -13,8 +13,8 @@
             "levelNum": 1,
             "levelUnlocked": true,
             "leaderboard": [
-                0,
-                0,
+                100,
+                100,
                 0,
                 0,
                 0
@@ -23,28 +23,6 @@
         {
             "levelNum": 2,
             "levelUnlocked": true,
-            "leaderboard": [
-                0,
-                0,
-                0,
-                0,
-                0
-            ]
-        },
-        {
-            "levelNum": 3,
-            "levelUnlocked": false,
-            "leaderboard": [
-                0,
-                0,
-                0,
-                0,
-                0
-            ]
-        },
-        {
-            "levelNum": 4,
-            "levelUnlocked": false,
             "leaderboard": [
                 0,
                 0,
