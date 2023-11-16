@@ -103,6 +103,11 @@ public class GameManager : Singleton<GameManager>
         SaveManager.Instance.WriteSaveFile();
     }
 
+    public void TryAgainButton()
+    {
+        sceneLoader.LoadLevel(sceneLoader.GetLevelNum());
+    }
+
     public void NextLevelButton()
     {
         if (sceneLoader.GetLevelNum() >= sceneLoader.levelNames.Length - 1 || !SaveManager.Instance.saveData.levelSaves[sceneLoader.GetLevelNum()].levelUnlocked) sceneLoader.LoadCredits();
