@@ -387,7 +387,7 @@ MonoBehaviour:
   scoreCounter: {fileID: 8200977809652924383}
   nextLevelButtonText: {fileID: 1828699878667733490}
   level2Button: {fileID: 8575853420039400196}
-  sensitivitySlider: {fileID: 5056367454494315069}
+  sensitivitySlider: {fileID: 6346639403553543281}
   audioSlider: {fileID: 7742916213198600889}
   crosshairToggle: {fileID: 6957822399436790843}
   patController:
@@ -1405,6 +1405,16 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1672491624100761643}
+    - target: {fileID: 1925615782516700409, guid: b7fc05c1d36a88942a847211bbfc618b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1672491624100761643}
+    - target: {fileID: 1925615782516700409, guid: b7fc05c1d36a88942a847211bbfc618b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SensitivitySlider
+      objectReference: {fileID: 0}
     - target: {fileID: 2460589551247883443, guid: b7fc05c1d36a88942a847211bbfc618b,
         type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1531,9 +1541,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4803902311766515848}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5056367454494315069 stripped
+--- !u!1 &5671860353326977439 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 872745341226086679, guid: b7fc05c1d36a88942a847211bbfc618b,
+    type: 3}
+  m_PrefabInstance: {fileID: 4803902311766515848}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6346639403553543281 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 324594368365179573, guid: b7fc05c1d36a88942a847211bbfc618b,
+  m_CorrespondingSourceObject: {fileID: 1925615782516700409, guid: b7fc05c1d36a88942a847211bbfc618b,
     type: 3}
   m_PrefabInstance: {fileID: 4803902311766515848}
   m_PrefabAsset: {fileID: 0}
@@ -1543,12 +1559,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &5671860353326977439 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 872745341226086679, guid: b7fc05c1d36a88942a847211bbfc618b,
-    type: 3}
-  m_PrefabInstance: {fileID: 4803902311766515848}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6957822399436790843 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2460589551247883443, guid: b7fc05c1d36a88942a847211bbfc618b,
