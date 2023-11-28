@@ -199,7 +199,7 @@ public class PatDialoguePart
 {
     [SerializeField] private PatFaceEnum face;
     public PatFaceEnum Face { get => face; }
-    [SerializeField] private string speech;
+    [SerializeField, TextArea] private string speech;
     public string Speech { get => speech; }
 }
 
