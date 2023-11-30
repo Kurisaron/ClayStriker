@@ -232,6 +232,68 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
+--- !u!1 &2548608319498353722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 201523662235536739}
+  m_Layer: 0
+  m_Name: VFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &201523662235536739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2548608319498353722}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1569477464002260151}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3541192180696977702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6392878123722598769}
+  m_Layer: 0
+  m_Name: Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6392878123722598769
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541192180696977702}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1569477464002260151}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7628626608714015562
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,6 +306,8 @@ GameObject:
   - component: {fileID: 4578796178132694485}
   - component: {fileID: 8851091497683951467}
   - component: {fileID: 1672491624100761643}
+  - component: {fileID: 9108242508322992532}
+  - component: {fileID: 3009221498565850280}
   m_Layer: 0
   m_Name: SingletonManager
   m_TagString: Untagged
@@ -265,6 +329,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3781514634398837738}
+  - {fileID: 6392878123722598769}
+  - {fileID: 201523662235536739}
   - {fileID: 5489744384217065071}
   - {fileID: 5793938671334381195}
   m_Father: {fileID: 0}
@@ -288,6 +354,7 @@ MonoBehaviour:
     levelNames:
     - LevelSelect
     - Level1
+    - EndlessTest
   playerPrefab: {fileID: 1533705738761902056, guid: fa53196b5c5da5547ac4ab464fdc152f,
     type: 3}
   bunkerPrefab: {fileID: 7604479232146857244, guid: e9e6978528a3d964db13cd983db0734a,
@@ -366,11 +433,26 @@ MonoBehaviour:
       - face: 1
         speech: Getting the high score on this course should prove that you can hold
           your own in a competition.
-    - context: 3
+    - context: 4
       parts:
-      - face: 1
-        speech: Getting the high score on this course should prove that you can hold
-          your own in a competition.
+      - face: 3
+        speech: "That\u2019s what I like to see, great job breaking those clays!
+          Now you're ready for something more difficult."
+    - context: 5
+      parts:
+      - face: 6
+        speech: Good try, but not quite good enough for me to let you take on a bigger
+          challenge, let's go again.
+    - context: 6
+      parts:
+      - face: 4
+        speech: A perfect score!?! Incredible! You really make an old panda proud.
+          Now you're ready for a bigger challenge.
+    - context: 7
+      parts:
+      - face: 8
+        speech: "Oh no, what did I just witness? You really are rusty. Don\u2019t
+          worry, nowhere to go but up, let\u2019s try again."
 --- !u!114 &1672491624100761643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,6 +474,41 @@ MonoBehaviour:
       audioLevel: 0
       crosshairActive: 0
     levelSaves: []
+--- !u!114 &9108242508322992532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7628626608714015562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 529abdac860e2144787cecde9e270fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetBreakVFX: {fileID: 8926484042661614526, guid: 05fe835f47069d3409db3dd9d1fbd292,
+    type: 3}
+--- !u!114 &3009221498565850280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7628626608714015562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841e0b2bb8317804fbfa46eb26950216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffects:
+  - context: 0
+    clip: {fileID: 8300000, guid: 4baea94ffde45fc4ea9a0d3da33736aa, type: 3}
+  - context: 1
+    clip: {fileID: 8300000, guid: 478ca0e260bea864d87be59ed67dcb3b, type: 3}
+  - context: 2
+    clip: {fileID: 8300000, guid: 7620b65fa58d9e9479f44ed6db067cc2, type: 3}
+  - context: 3
+    clip: {fileID: 8300000, guid: 00eb7dd15fd75db489e8f097734734e8, type: 3}
 --- !u!1 &8770536137388928266
 GameObject:
   m_ObjectHideFlags: 0

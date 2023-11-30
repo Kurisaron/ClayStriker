@@ -23,10 +23,12 @@ public class SaveManager : Singleton<SaveManager>
             return;
         }
 
+        /*
         foreach (LevelSave levelSave in saveData.levelSaves)
         {
             Debug.Log(levelSave.PrintScores());
         }
+        */
     }
 
     public SaveData ReadSaveFile()
@@ -72,8 +74,9 @@ public class SaveManager : Singleton<SaveManager>
     {
         saveData.NewScore(levelIndex, score, out newScoreIndex);
 
+        if (levelIndex + 1 >= saveData.levelSaves.Length) return;
         LevelSave nextLevel = saveData.levelSaves[levelIndex + 1];
-        if (!nextLevel.levelUnlocked && newScoreIndex >= 0) nextLevel.levelUnlocked = true;
+        if (score > 0 && nextLevel != null && !nextLevel.levelUnlocked && newScoreIndex >= 0) nextLevel.levelUnlocked = true;
     }
 
     public void ResolutionDropdown(Dropdown dropdown)
@@ -106,7 +109,7 @@ public class SaveData
     public SaveData(OptionsSave.ResolutionSave resolutionSave)
     {
         options = new OptionsSave(resolutionSave);
-        levelSaves = new LevelSave[4];
+        levelSaves = new LevelSave[2];
         for (int i = 0; i < levelSaves.Length; ++i)
         {
             levelSaves[i] = new LevelSave(i + 1);
