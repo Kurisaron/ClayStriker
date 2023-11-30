@@ -366,6 +366,11 @@ MonoBehaviour:
       - face: 1
         speech: Getting the high score on this course should prove that you can hold
           your own in a competition.
+    - context: 3
+      parts:
+      - face: 1
+        speech: Getting the high score on this course should prove that you can hold
+          your own in a competition.
 --- !u!114 &1672491624100761643
 MonoBehaviour:
   m_ObjectHideFlags: 0
