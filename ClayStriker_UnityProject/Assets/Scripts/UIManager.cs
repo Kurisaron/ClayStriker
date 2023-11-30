@@ -153,7 +153,8 @@ public class PatController
     [SerializeField] private List<PatFace> patFaces;
 
     [SerializeField] private List<PatDialogue> dialogues;
-    private Coroutine activeDialogue;
+    public Coroutine activeDialogue;
+    private bool DisplayingDialogue { get => patWindow.activeInHierarchy; }
 
     public void DisplayDialogue(PatDialogueContext dialogueContext)
     {
@@ -181,6 +182,14 @@ public class PatController
         if (sprite != null) patFace.sprite = sprite;
         else Debug.LogWarning("No face available for current dialogue.");
         patSpeech.text = speech;
+    }
+
+    public async Task WaitForStopDisplay()
+    {
+        while (DisplayingDialogue)
+        {
+            await Task.Yield();
+        }
     }
 }
 

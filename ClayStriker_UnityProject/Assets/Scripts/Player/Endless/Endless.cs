@@ -1,19 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public class Endless : Singleton<Endless>
+public class Endless : GameMode<Endless>
 {
     [HideInInspector] public Player player;
 
-    private int targetsMissed;
     public int TargetsMissed
     {
-        get => targetsMissed;
+        get => targetStatus.missed;
         set
         {
-            targetsMissed = value;
+            targetStatus.missed = value;
         }
     }
 
@@ -26,13 +26,12 @@ public class Endless : Singleton<Endless>
         player = playerObject.GetComponent<Player>();
         player.SetBearing(() => transform.forward);
 
-        targetsMissed = 0;
         StartCoroutine(EndlessModeRoutine());
     }
 
     private IEnumerator EndlessModeRoutine()
     {
-        while (targetsMissed < 3)
+        while (targetStatus.missed < 3)
         {
             if (bunkerPairs == null || bunkerPairs.Count <= 0)
             {
@@ -50,16 +49,10 @@ public class Endless : Singleton<Endless>
         End();
     }
 
-    private void End()
+    public override async Task End()
     {
-        InputEvents.Instance.SetInputState(InputState.Menu);
+        await base.End();
 
-        int levelNum = GameManager.Instance.sceneLoader.GetLevelNum();
-        SaveManager.Instance.NewScore(levelNum - 1, GameManager.Instance.Score, out int newScoreIndex);
-        SaveManager.Instance.WriteSaveFile();
-        GameManager.Instance.ResetScore();
-
-        UIManager.Instance.DisplayLeaderboard(levelNum, newScoreIndex);
     }
 }
 
