@@ -25,6 +25,10 @@ public class Target : MonoBehaviour
                 parentStop = null;
             }
 
+            // Line below commented out as per programmer discretion, realized it was unnecessary to play VFX when the targets are too far from the player
+            // VFXManager.Instance.TargetBreak(transform.position, GetComponent<Rigidbody>().velocity.normalized);
+            if (Track.Instance != null) Track.Instance.targetStatus.missed += 1;
+            if (Endless.Instance != null) Endless.Instance.TargetsMissed += 1;
             Destroy(gameObject);
         }
     }
@@ -33,7 +37,7 @@ public class Target : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Transform otherBaseGO = other.transform.GetBaseTransform();
-        if (otherBaseGO.name.Contains("Bunker") || otherBaseGO.name.Contains("Spawner")) return;
+        if (otherBaseGO.name.Contains("bunker", System.StringComparison.CurrentCultureIgnoreCase) || otherBaseGO.name.Contains("spawner", System.StringComparison.CurrentCultureIgnoreCase)) return;
 
         if (parentStop != null)
         {
@@ -45,9 +49,18 @@ public class Target : MonoBehaviour
         if (!isSmashed && other.gameObject.transform.GetBaseTransform().gameObject.name.Contains("Bullet"))
         {
             GameManager.Instance.AddScore(pointValue);
+            if (Track.Instance != null) Track.Instance.targetStatus.hit += 1;
+            if (Endless.Instance != null) Endless.Instance.targetStatus.hit += 1;
+        }
+        else
+        {
+            if (Track.Instance != null) Track.Instance.targetStatus.missed += 1;
+            if (Endless.Instance != null) Endless.Instance.targetStatus.missed += 1;
         }
 
         isSmashed = true;
+        VFXManager.Instance.TargetBreak(transform.position, GetComponent<Rigidbody>().velocity.normalized);
+        SoundManager.Instance.PlaySFX(SoundContext.TargetBreak);
         Destroy(gameObject);
     }
 }
