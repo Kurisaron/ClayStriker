@@ -66,8 +66,7 @@ public class UIManager : Singleton<UIManager>
     {
         leaderboardScreen.SetActive(true);
 
-        bool buttonToCredits = level >= SaveManager.Instance.saveData.levelSaves.Length || !SaveManager.Instance.saveData.levelSaves[level].levelUnlocked;
-        nextLevelButtonText.text = buttonToCredits ? "Credits" : "Next Level";
+        nextLevelButtonText.text = GameManager.Instance.sceneLoader.GetLevelNum() >= GameManager.Instance.sceneLoader.levelNames.Length - 1 ? "Credits" : "Next Level";
 
         GameObject[] scoreText = new GameObject[5];
         for (int i = 0; i < scoreText.Length; ++i)
@@ -153,8 +152,7 @@ public class PatController
     [SerializeField] private List<PatFace> patFaces;
 
     [SerializeField] private List<PatDialogue> dialogues;
-    public Coroutine activeDialogue;
-    private bool DisplayingDialogue { get => patWindow.activeInHierarchy; }
+    private Coroutine activeDialogue;
 
     public void DisplayDialogue(PatDialogueContext dialogueContext)
     {
@@ -183,14 +181,6 @@ public class PatController
         else Debug.LogWarning("No face available for current dialogue.");
         patSpeech.text = speech;
     }
-
-    public async Task WaitForStopDisplay()
-    {
-        while (DisplayingDialogue)
-        {
-            await Task.Yield();
-        }
-    }
 }
 
 [Serializable]
@@ -208,7 +198,7 @@ public class PatDialoguePart
 {
     [SerializeField] private PatFaceEnum face;
     public PatFaceEnum Face { get => face; }
-    [SerializeField, TextArea] private string speech;
+    [SerializeField] private string speech;
     public string Speech { get => speech; }
 }
 
@@ -225,10 +215,6 @@ public enum PatDialogueContext
     Level1_Start,
     Level1_AfterStation1,
     Level1_AfterStation2,
-    Pass,
-    Fail,
-    CriticalPass,
-    CriticalFail
 }
 
 public enum PatFaceEnum

@@ -1,11 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEditor;
 
-public class Track : GameMode<Track>
+public class Track : Singleton<Track>
 {
     [SerializeField] private bool showDebug = true;
 
@@ -23,7 +22,7 @@ public class Track : GameMode<Track>
     public override void Awake()
     {
         base.Awake();
-        targetStatus = (0, 0);
+
     }
 
     private void Start()
@@ -73,16 +72,22 @@ public class Track : GameMode<Track>
         currentStop = targetStop;
     }
 
-    public async void PassOn()
+    public void PassOn()
     {
         if (route.Count > 0) targetStop = route.Dequeue();
-        else await End();
+        else EndTrack();
     }
 
-    public override async Task End()
+    private void EndTrack()
     {
-        await base.End();
+        InputEvents.Instance.SetInputState(InputState.Menu);
 
+        int levelNum = GameManager.Instance.sceneLoader.GetLevelNum();
+        SaveManager.Instance.NewScore(levelNum - 1, GameManager.Instance.Score, out int newScoreIndex);
+        SaveManager.Instance.WriteSaveFile();
+        GameManager.Instance.ResetScore();
+
+        DisplayLeaderboard(levelNum, newScoreIndex);
     }
 
     private void DisplayLeaderboard(int levelNum, int newScoreIndex)
