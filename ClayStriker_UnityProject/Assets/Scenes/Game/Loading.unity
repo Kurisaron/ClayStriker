@@ -371,11 +371,6 @@ PrefabInstance:
       propertyPath: m_FontData.m_MaxSize
       value: 68
       objectReference: {fileID: 0}
-    - target: {fileID: 607128413490849244, guid: 8847f65fcc8c3864d9a79937fe965d1a,
-        type: 3}
-      propertyPath: m_FontData.m_FontSize
-      value: 68
-      objectReference: {fileID: 0}
     - target: {fileID: 1004193875748167107, guid: 8847f65fcc8c3864d9a79937fe965d1a,
         type: 3}
       propertyPath: m_IsActive
@@ -461,11 +456,6 @@ PrefabInstance:
       propertyPath: m_FontData.m_MaxSize
       value: 68
       objectReference: {fileID: 0}
-    - target: {fileID: 3664125033477771069, guid: 8847f65fcc8c3864d9a79937fe965d1a,
-        type: 3}
-      propertyPath: m_FontData.m_FontSize
-      value: 68
-      objectReference: {fileID: 0}
     - target: {fileID: 4455323226588894428, guid: 8847f65fcc8c3864d9a79937fe965d1a,
         type: 3}
       propertyPath: m_IsActive
@@ -506,11 +496,6 @@ PrefabInstance:
       propertyPath: m_FontData.m_MaxSize
       value: 68
       objectReference: {fileID: 0}
-    - target: {fileID: 5125767011507825096, guid: 8847f65fcc8c3864d9a79937fe965d1a,
-        type: 3}
-      propertyPath: m_FontData.m_FontSize
-      value: 68
-      objectReference: {fileID: 0}
     - target: {fileID: 5379451119511297657, guid: 8847f65fcc8c3864d9a79937fe965d1a,
         type: 3}
       propertyPath: m_Enabled
@@ -539,11 +524,6 @@ PrefabInstance:
     - target: {fileID: 6650107166200191197, guid: 8847f65fcc8c3864d9a79937fe965d1a,
         type: 3}
       propertyPath: m_FontData.m_MaxSize
-      value: 68
-      objectReference: {fileID: 0}
-    - target: {fileID: 6650107166200191197, guid: 8847f65fcc8c3864d9a79937fe965d1a,
-        type: 3}
-      propertyPath: m_FontData.m_FontSize
       value: 68
       objectReference: {fileID: 0}
     - target: {fileID: 7628626608714015562, guid: 8847f65fcc8c3864d9a79937fe965d1a,
@@ -589,11 +569,6 @@ PrefabInstance:
     - target: {fileID: 8538106445705209323, guid: 8847f65fcc8c3864d9a79937fe965d1a,
         type: 3}
       propertyPath: m_FontData.m_MaxSize
-      value: 68
-      objectReference: {fileID: 0}
-    - target: {fileID: 8538106445705209323, guid: 8847f65fcc8c3864d9a79937fe965d1a,
-        type: 3}
-      propertyPath: m_FontData.m_FontSize
       value: 68
       objectReference: {fileID: 0}
     - target: {fileID: 8656836240215217554, guid: 8847f65fcc8c3864d9a79937fe965d1a,
