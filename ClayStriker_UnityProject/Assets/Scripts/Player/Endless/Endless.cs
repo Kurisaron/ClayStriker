@@ -22,7 +22,7 @@ public class Endless : GameMode<Endless>
     private void Start()
     {
         GameObject playerObject = Instantiate(GameManager.Instance.playerPrefab);
-        playerObject.transform.SetPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero));
+        playerObject.transform.SetPositionAndRotation(transform.position, Quaternion.Euler(Vector3.zero));
         player = playerObject.GetComponent<Player>();
         player.SetBearing(() => transform.forward);
 
