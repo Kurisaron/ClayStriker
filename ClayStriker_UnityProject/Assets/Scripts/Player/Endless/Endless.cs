@@ -31,7 +31,7 @@ public class Endless : GameMode<Endless>
 
     private IEnumerator EndlessModeRoutine()
     {
-        while (targetStatus.missed < 3)
+        while (targetStatus.missed < 12)
         {
             if (bunkerPairs == null || bunkerPairs.Count <= 0)
             {
@@ -43,7 +43,7 @@ public class Endless : GameMode<Endless>
             if (bunkerPair.bunkerA != null) bunkerPair.bunkerA.ShootTarget();
             if (bunkerPair.bunkerB != null && bunkerPair.bunkerA != bunkerPair.bunkerB) bunkerPair.bunkerB.ShootTarget();
 
-            yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 2.0f));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(2.0f, 2.5f));
         }
 
         End();
