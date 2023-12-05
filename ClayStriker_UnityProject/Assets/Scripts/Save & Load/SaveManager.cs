@@ -140,7 +140,7 @@ public class OptionsSave
         set
         {
             sensitivityLevel = value;
-            UIManager.Instance.cameraSettings.turnSpeed = Mathf.Lerp(0.0f, 0.5f, value);
+            UIManager.Instance.cameraSettings.turnSpeed = Mathf.Lerp(0.001f, 0.5f, value);
         }
     }
     [SerializeField] private float audioLevel;

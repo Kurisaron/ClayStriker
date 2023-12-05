@@ -24,7 +24,7 @@ public class GameManager : Singleton<GameManager>
         {
             gamePaused = value;
             Time.timeScale = value ? 0 : 1;
-            InputEvents.Instance.SetInputState(value ? InputState.PauseMenu : InputState.Game);
+            //InputEvents.Instance.SetInputState(value ? InputState.PauseMenu : InputState.Game);
             UIManager.Instance.DisplayPauseScreen(value);
             UIManager.Instance.DisplayOptionsMenu(false);
         }

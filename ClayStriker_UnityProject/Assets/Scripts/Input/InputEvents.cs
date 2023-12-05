@@ -10,7 +10,7 @@ public class InputEvents : Singleton<InputEvents>
     // VARIABLES
     //===========
 
-    private InputState inputState;
+    private InputState inputState = InputState.Menu;
     private Action<Vector2> lookEvent;
     private Action fireEvent;
     private Action pauseEvent;
@@ -135,7 +135,11 @@ public class InputEvents : Singleton<InputEvents>
     }
 
     // GAME: Pause/unpause the game
-    private void TogglePause() => GameManager.Instance.GamePaused ^= true;
+    private void TogglePause()
+    {
+        GameManager.Instance.GamePaused ^= true;
+        InputEvents.Instance.SetInputState(GameManager.Instance.GamePaused ? InputState.PauseMenu : InputState.Game);
+    }
 
     // MENU: Move the cursor
     private void MoveCursor(Vector2 delta)
